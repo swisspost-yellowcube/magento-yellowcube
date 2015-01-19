@@ -1,0 +1,38 @@
+<?php
+/**
+ * @see Swisspost_YellowCube_Block_Adminhtml_System_Config_Synchronize
+ */
+?>
+<script type="text/javascript">
+    //<![CDATA[
+        function <?php echo $this->getHtmlId() ?>_handler() {
+            var elem = $('<?php echo $this->getHtmlId() ?>');
+
+            new Ajax.Request('<?php echo $this->getAjaxUrl() ?>', {
+                parameters: {},
+                onSuccess: function(response) {
+                    result = '<?php echo $this->__('Synchronization task hasnt been sent to queue! Try again?') ?>';
+                    try {
+                        response = response.responseText;
+                        if (response == 1) {
+                            result = '<?php echo $this->__('Synchronization task has been sent to queue!') ?>';
+                            elem.removeClassName('fail').addClassName('success')
+                        } else {
+                            elem.removeClassName('success').addClassName('fail')
+                        }
+                    } catch (e) {
+                        elem.removeClassName('success').addClassName('fail')
+                    }
+                    $('<?php echo $this->getHtmlId() ?>_button').update(result);
+                }
+            });
+        }
+
+        Event.observe(window, 'load', function() {
+            Event.observe($('<?php echo $this->getHtmlId() ?>'), 'click', <?php echo $this->getHtmlId() ?>_handler);
+        });
+    //]]>
+</script>
+<button class="scalable" type="button" id="<?php echo $this->getHtmlId() ?>">
+    <span><span><span id="<?php echo $this->getHtmlId() ?>_button"><?php echo $this->escapeHtml($this->getButtonLabel()) ?></span></span></span>
+</button>

@@ -1,0 +1,18 @@
+<script type="text/javascript">
+    //<![CDATA[
+    function handleYcSync() {
+        $$('[id^="yc_"]:not([id=yc_sync_with_yellowcube])').each(function(el){
+            if ($('yc_sync_with_yellowcube').value != 0) {
+                el.up('tr').show();
+            } else {
+                el.up('tr').hide();
+            }
+        });
+    }
+
+    Event.observe(window, 'load', function() {
+        handleYcSync();
+        Event.observe($('yc_sync_with_yellowcube'), 'change', handleYcSync);
+    });
+    //]]>
+</script>

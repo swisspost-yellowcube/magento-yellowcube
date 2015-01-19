@@ -1,0 +1,37 @@
+<VirtualHost *:80>
+    ServerAdmin webmaster@example.com
+    ServerName cube.loc
+    SetEnv MAGE_IS_DEVELOPER_MODE true
+
+    DocumentRoot /vagrant
+    <Directory /vagrant>
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride All
+        Order allow,deny
+        allow from all
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+
+    # Possible values include: debug, info, notice, warn, error, crit,
+    # alert, emerg.
+    LogLevel warn
+
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+</VirtualHost>
+
+<VirtualHost *:443>
+    SSLEngine on
+    SSLCertificateFile /etc/apache2/ssl/apache.crt
+    SSLCertificateKeyFile /etc/apache2/ssl/apache.key
+    ServerName cube.loc
+    DocumentRoot "/vagrant/"
+
+    <Directory "/vagrant">
+        SetEnv MAGE_IS_DEVELOPER_MODE true
+        AllowOverride All
+        Allow from All
+   </Directory>
+
+</VirtualHost>

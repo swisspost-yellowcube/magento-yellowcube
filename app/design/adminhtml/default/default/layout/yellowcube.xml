@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_catalog_product_new>
+        <reference name="js">
+            <block type="core/template" name="yellowcube.catalog.product.js" template="yellowcube/catalog/product/js.phtml"/>
+        </reference>
+    </adminhtml_catalog_product_new>
+    <adminhtml_catalog_product_edit>
+        <reference name="js">
+            <block type="core/template" name="yellowcube.catalog.product.js" template="yellowcube/catalog/product/js.phtml"/>
+        </reference>
+    </adminhtml_catalog_product_edit>
+</layout>

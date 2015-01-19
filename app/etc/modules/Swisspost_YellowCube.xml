@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<config>
+    <modules>
+        <Swisspost_YellowCube>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends>
+                <Mage_Catalog/>
+                <Mage_Core/>
+                <Mage_Eav/>
+            </depends>
+        </Swisspost_YellowCube>
+    </modules>
+</config>

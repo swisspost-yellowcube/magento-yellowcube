@@ -1,0 +1,5 @@
+/var/*
+/app/etc/local.xml
+.vagrant
+.idea
+media

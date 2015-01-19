@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+
+<config>
+    <modules>
+        <Swisspost_YellowCube>
+            <version>1.0.0.0</version>
+        </Swisspost_YellowCube>
+    </modules>
+    <global>
+        <blocks>
+            <swisspost_yellowcube>
+                <class>Swisspost_YellowCube_Block</class>
+            </swisspost_yellowcube>
+        </blocks>
+        <models>
+            <swisspost_yellowcube>
+                <class>Swisspost_YellowCube_Model</class>
+            </swisspost_yellowcube>
+        </models>
+        <helpers>
+            <swisspost_yellowcube>
+                <class>Swisspost_YellowCube_Helper</class>
+            </swisspost_yellowcube>
+        </helpers>
+        <resources>
+            <swisspost_yellowcube_setup>
+                <setup>
+                    <module>Swisspost_YellowCube</module>
+                    <class>Mage_Eav_Model_Entity_Setup</class>
+                </setup>
+            </swisspost_yellowcube_setup>
+        </resources>
+        <events>
+            <catalog_product_save_after>
+                <observers>
+                    <catalog_product_yellowcube_sync>
+                        <class>swisspost_yellowcube/observer</class>
+                        <method>handleProductSave</method>
+                    </catalog_product_yellowcube_sync>
+                </observers>
+            </catalog_product_save_after>
+            <catalog_product_delete_before>
+                <observers>
+                    <catalog_product_yellowcube_sync>
+                        <class>swisspost_yellowcube/observer</class>
+                        <method>handleProductDelete</method>
+                    </catalog_product_yellowcube_sync>
+                </observers>
+            </catalog_product_delete_before>
+        </events>
+        <carriers>
+            <swisspost_yellowcube>
+                <methods>
+                    <eco translate="label" module="swisspost_yellowcube">
+                        <label>PostPac Economy</label>
+                        <code>ECO</code>
+                    </eco>
+                    <pri translate="label" module="swisspost_yellowcube">
+                        <label>PostPac Priority</label>
+                        <code>PRI</code>
+                    </pri>
+                    <sp_eco translate="label" module="swisspost_yellowcube">
+                        <label>Bulky goods PostPac Economy</label>
+                        <code>SP ECO</code>
+                    </sp_eco>
+                    <sp_pri translate="label" module="swisspost_yellowcube">
+                        <label>Bulky goods PostPac Priority</label>
+                        <code>SP PRI</code>
+                    </sp_pri>
+                    <ppr translate="label" module="swisspost_yellowcube">
+                        <label>PostPac Promo</label>
+                        <code>PPR</code>
+                    </ppr>
+                    <sem translate="label" module="swisspost_yellowcube">
+                        <label>Swiss-Express Mond</label>
+                        <code>SEM</code>
+                    </sem>
+                    <sp_sem translate="label" module="swisspost_yellowcube">
+                        <label>Bulky goods Swiss-Express Mond</label>
+                        <code>SP SEM</code>
+                    </sp_sem>
+                    <skb translate="label" module="swisspost_yellowcube">
+                        <label>Swiss-Kurier Blitz</label>
+                        <code>SKB</code>
+                    </skb>
+                    <sp_skb translate="label" module="swisspost_yellowcube">
+                        <label>Bulky goods Swiss-Kurier Blitz</label>
+                        <code>SP SKB</code>
+                    </sp_skb>
+                    <vl translate="label" module="swisspost_yellowcube">
+                        <label>Vinolog</label>
+                        <code>VL</code>
+                    </vl>
+                    <pickup translate="label" module="swisspost_yellowcube">
+                        <label>Collection customer/receiver - pick-up</label>
+                        <code>PICKUP</code>
+                    </pickup>
+                    <retoure translate="label" module="swisspost_yellowcube">
+                        <label>Return Shipment</label>
+                        <code>RETOURE</code>
+                    </retoure>
+                    <lkw_eco translate="label" module="swisspost_yellowcube">
+                        <label>Flight/bulky goods Economy</label>
+                        <code>LKW ECO</code>
+                    </lkw_eco>
+                    <lkw_prio translate="label" module="swisspost_yellowcube">
+                        <label>Flight/small consignments Priority</label>
+                        <code>LKW PRIO</code>
+                    </lkw_prio>
+                    <lkw_express translate="label" module="swisspost_yellowcube">
+                        <label>Flight/small consignments Express</label>
+                        <code>LKW EXPRESS</code>
+                    </lkw_express>
+                </methods>
+            </swisspost_yellowcube>
+        </carriers>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <swisspost_yellowcube before="Mage_Adminhtml">Swisspost_YellowCube_Adminhtml</swisspost_yellowcube>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <swisspost_yellowcube>
+                    <file>yellowcube.xml</file>
+                </swisspost_yellowcube>
+            </updates>
+        </layout>
+    </adminhtml>
+    <default>
+        <carriers>
+            <swisspost_yellowcube>
+                <active>0</active>
+                <model>swisspost_yellowcube/shipping_carrier_rate</model>
+                <title>SwissPost</title>
+            </swisspost_yellowcube>
+        </carriers>
+    </default>
+    <crontab>
+        <jobs>
+            <yc_process_queue>
+                <schedule>
+                    <cron_expr>*/1 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>swisspost_yellowcube/queue_processor::process</model>
+                </run>
+            </yc_process_queue>
+        </jobs>
+    </crontab>
+</config>
