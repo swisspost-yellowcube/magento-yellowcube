@@ -16,4 +16,13 @@ abstract class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor
         //TODO: implement instantiation of service through Swisspost_YellowCube_Model_Library_Client
         return new YellowCube\Service(YellowCube\Config::testConfig());
     }
+
+    /**
+     * @param float $number
+     * @return string
+     */
+    public function formatUom($number)
+    {
+        return number_format($number, 3, '.', '');
+    }
 }

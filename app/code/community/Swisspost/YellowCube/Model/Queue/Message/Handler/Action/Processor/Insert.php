@@ -22,10 +22,10 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Insert
             ->setBaseUOM(\YellowCube\ART\UnitsOfMeasure\ISO::PCE)
             ->setAlternateUnitISO(\YellowCube\ART\UnitsOfMeasure\ISO::PCE)
             ->setArticleNo($data['product_sku'])
-            ->setNetWeight((int)$data['product_weight'], \YellowCube\ART\UnitsOfMeasure\ISO::KGM)
-            ->setLength((int)$data['product_length'], $uom)
-            ->setWidth((int)$data['product_width'], $uom)
-            ->setHeight((int)$data['product_height'], $uom)
+            ->setNetWeight($this->formatUom($data['product_weight']), \YellowCube\ART\UnitsOfMeasure\ISO::KGM)
+            ->setLength($this->formatUom($data['product_length']), $uom)
+            ->setWidth($this->formatUom($data['product_width']), $uom)
+            ->setHeight($this->formatUom($data['product_height']), $uom)
             ->addArticleDescription($data['product_description'], 'de');
 
         $response = $this->getYellowCubeService()->insertArticleMasterData($article);
