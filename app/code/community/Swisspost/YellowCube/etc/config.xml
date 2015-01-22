@@ -148,7 +148,7 @@
         <jobs>
             <yc_process_queue>
                 <schedule>
-                    <cron_expr>*/1 * * * *</cron_expr>
+                    <cron_expr>*/5 * * * *</cron_expr>
                 </schedule>
                 <run>
                     <model>swisspost_yellowcube/queue_processor::process</model>
