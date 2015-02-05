@@ -2,6 +2,10 @@
 
 class Swisspost_YellowCube_Model_Observer
 {
+    const CONFIG_PATH_PSR0NAMESPACES = 'global/psr0_namespaces';
+
+    static $shouldAdd = true;
+
     /**
      * @param Varien_Event_Observer $observer
      */
@@ -75,5 +79,44 @@ class Swisspost_YellowCube_Model_Observer
     {
         return $product->isObjectNew()
         || (($product->getOrigData('sku') == '') && (strlen($product->getData('sku')) > 0));
+    }
+
+    /**
+     * @return array
+     */
+    protected function _getNamespacesToRegister()
+    {
+        $namespaces = array();
+        $node = Mage::getConfig()->getNode(self::CONFIG_PATH_PSR0NAMESPACES);
+        if ($node && is_array($node->asArray())) {
+            $namespaces = array_keys($node->asArray());
+        }
+        return $namespaces;
+    }
+
+    /**
+     * Add PSR-0 Autoloader for our Yellowcube library
+     *
+     * Event
+     * - resource_get_tablename
+     * - add_spl_autoloader
+     */
+    public function addAutoloader()
+    {
+        if (!self::$shouldAdd) {
+            return;
+        }
+
+        foreach ($this->_getNamespacesToRegister() as $namespace) {
+            $namespace = str_replace('_', '/', $namespace);
+            if (is_dir(Mage::getBaseDir('lib') . DS . $namespace)) {
+                $args = array($namespace, Mage::getBaseDir('lib') . DS . $namespace);
+                $autoloader = Mage::getModel("swisspost_yellowcube/splAutoloader", $args);
+                $autoloader->register();
+            }
+        }
+
+        self::$shouldAdd = false;
+        return $this;
     }
 }

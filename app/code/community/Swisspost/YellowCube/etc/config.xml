@@ -6,6 +6,12 @@
             <version>1.0.0.0</version>
         </Swisspost_YellowCube>
     </modules>
+
+    <psr0_namespaces>
+        <!-- Required to load the YellowCube PHP library -->
+        <Yellowcube />
+    </psr0_namespaces>
+
     <global>
         <blocks>
             <swisspost_yellowcube>
@@ -47,6 +53,26 @@
                     </catalog_product_yellowcube_sync>
                 </observers>
             </catalog_product_delete_before>
+
+            <resource_get_tablename>
+                <observers>
+                    <swisspost_yellowcube_autoloader>
+                        <type>singleton</type>
+                        <class>swisspost_yellowcube/observer</class>
+                        <method>addAutoloader</method>
+                    </swisspost_yellowcube_autoloader>
+                </observers>
+            </resource_get_tablename>
+
+            <add_spl_autoloader>
+                <observers>
+                    <swisspost_yellowcube_autoloader>
+                        <type>singleton</type>
+                        <class>swisspost_yellowcube/observer</class>
+                        <method>addAutoloader</method>
+                    </swisspost_yellowcube_autoloader>
+                </observers>
+            </add_spl_autoloader>
         </events>
         <carriers>
             <swisspost_yellowcube>
