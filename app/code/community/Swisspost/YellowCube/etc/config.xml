@@ -167,6 +167,7 @@
                 <active>0</active>
                 <model>swisspost_yellowcube/shipping_carrier_rate</model>
                 <title>SwissPost</title>
+                <tara_factor>1</tara_factor>
             </swisspost_yellowcube>
         </carriers>
     </default>
