@@ -376,12 +376,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:liip/yellowcube-php.git",
-                "reference": "a9d06f75b7bf4abe5d5e17948ab39fbcdf7cd4ba"
+                "reference": "4265fa3800c5c174e15c53613f690e0b959331bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/liip/yellowcube-php/zipball/a9d06f75b7bf4abe5d5e17948ab39fbcdf7cd4ba",
-                "reference": "a9d06f75b7bf4abe5d5e17948ab39fbcdf7cd4ba",
+                "url": "https://api.github.com/repos/liip/yellowcube-php/zipball/4265fa3800c5c174e15c53613f690e0b959331bb",
+                "reference": "4265fa3800c5c174e15c53613f690e0b959331bb",
                 "shasum": ""
             },
             "require": {
@@ -413,7 +413,7 @@
                 "source": "https://github.com/liip/yellowcube-php/tree/master",
                 "issues": "https://github.com/liip/yellowcube-php/issues"
             },
-            "time": "2015-02-05 12:33:51"
+            "time": "2015-02-05 14:59:23"
         },
         {
             "name": "magento-hackathon/magento-composer-installer",

@@ -40,6 +40,11 @@ class Magento
                     self::_recursiveRmDir($magentoPath . 'lib/YellowCube');
                 }
                 self::_recurseCopy(dirname(__DIR__), $magentoPath . 'lib/YellowCube');
+                
+                if (is_dir($magentoPath . 'lib/Beberlei')) {
+                    self::_recursiveRmDir($magentoPath . 'lib/Beberlei');
+                }
+                self::_recurseCopy(dirname(__DIR__) . '/../../../../beberlei/assert/lib/Assert', $magentoPath . 'lib/Assert');
             }
         }
     }
@@ -57,6 +62,9 @@ class Magento
             $magentoPath = $extras['magento-root-dir'];
             if (is_dir($magentoPath . 'lib/YellowCube')) {
                 self::_recursiveRmDir($magentoPath . 'lib/YellowCube');
+            }
+            if (is_dir($magentoPath . 'lib/Beberlei')) {
+                self::_recursiveRmDir($magentoPath . 'lib/Beberlei');
             }
         }
     }
