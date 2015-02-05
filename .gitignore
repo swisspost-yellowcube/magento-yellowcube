@@ -4,3 +4,7 @@
 .vagrant
 .idea
 media/catalog/product
+
+/vendor/
+/var/session
+/var/report
