@@ -1,5 +1,11 @@
 <?php
 
+use YellowCube\Service;
+use YellowCube\Config;
+
+/**
+ * Class Swisspost_YellowCube_Model_Library_Client
+ */
 class Swisspost_YellowCube_Model_Library_Client
 {
     /**
@@ -15,25 +21,36 @@ class Swisspost_YellowCube_Model_Library_Client
      */
     public function getServiceConfig()
     {
-        if (true) {
-            return YellowCube\Config::testConfig();
+        $helper = Mage::helper('swisspost_yellowcube');
+
+        $senderId = $helper->getSenderId();
+        $endpoint = $helper->getEndpoint();
+        $operationMode = $helper->getOperationMode();
+        $certificatePath = $helper->getCertificatePath();
+        $certificatePassword = $helper->getCertificatePassword();
+
+        if (empty($senderId) || empty($endpoint) || empty($operationMode)
+            || (in_array($helper->getOperationMode(), array('P', 'D')) && empty($certificatePath) && empty($certificatePassword))
+        ) {
+            Mage::throwException(
+                $helper->__('YellowCube Extension is not properly configured. Please <a href="%s">configure</a> it before to continue.',
+                    Mage::getUrl('system_config/edit/section/carriers')));
         }
 
-//        $config = new YellowCube\Config(
-//            variable_get('yellowcube_sender', ''),
-//            variable_get('yellowcube_endpoint', ''),
-//            null,
-//            variable_get('yellowcube_mode', 'T')
-//        );
-//
-//        //Certificate handling
-//        if(in_array($operation_mode, array('P', 'D'))) {
-//            if (!empty($cert_path) && file_exists($cert_path)) {
-//                $config->setCertificateFilePath($cert_path);
-//                //Todo: handle password
-//            }
-//        }
-//
-//        return $config;
+        $config = new YellowCube\Config(
+            $helper->getSenderId(),
+            $helper->getEndpoint(),
+            null,
+            $helper->getOperationMode()
+        );
+
+        // Certificate handling
+        if (in_array($helper->getOperationMode(), array('P', 'D'))) {
+            if (!empty($certificatePath) && file_exists($certificatePath)) {
+                $config->setCertificateFilePath($certificatePath, $certificatePassword);
+            }
+        }
+
+        return $config;
     }
 }

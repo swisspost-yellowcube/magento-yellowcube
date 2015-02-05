@@ -7,12 +7,13 @@
         </Swisspost_YellowCube>
     </modules>
 
-    <psr0_namespaces>
-        <!-- Required to load the YellowCube PHP library -->
-        <Yellowcube />
-    </psr0_namespaces>
-
     <global>
+        <psr0_namespaces>
+            <!-- Required to load the YellowCube PHP library -->
+            <YellowCube />
+            <Assert />
+        </psr0_namespaces>
+
         <blocks>
             <swisspost_yellowcube>
                 <class>Swisspost_YellowCube_Block</class>
@@ -66,11 +67,11 @@
 
             <add_spl_autoloader>
                 <observers>
-                    <swisspost_yellowcube_autoloader>
+                    <swisspost_yellowcube_spl_autoloader>
                         <type>singleton</type>
                         <class>swisspost_yellowcube/observer</class>
                         <method>addAutoloader</method>
-                    </swisspost_yellowcube_autoloader>
+                    </swisspost_yellowcube_spl_autoloader>
                 </observers>
             </add_spl_autoloader>
         </events>
@@ -168,6 +169,7 @@
                 <model>swisspost_yellowcube/shipping_carrier_rate</model>
                 <title>SwissPost</title>
                 <tara_factor>1</tara_factor>
+                <operation_mode>T</operation_mode>
             </swisspost_yellowcube>
         </carriers>
     </default>

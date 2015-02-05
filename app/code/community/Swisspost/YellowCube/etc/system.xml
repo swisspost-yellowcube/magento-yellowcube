@@ -38,14 +38,14 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </sender_id>
-                        <seller_id translate="label">
-                            <label>Distance Seller ID</label>
+                        <depositor_number translate="label">
+                            <label>Depositor Number</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                        </seller_id>
+                        </depositor_number>
                         <partner_number translate="label">
                             <label>Partner Number</label>
                             <frontend_type>text</frontend_type>
@@ -54,14 +54,14 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </partner_number>
-                        <warehouse_id translate="label">
-                            <label>Warehouse-ID</label>
+                        <plant_id translate="label">
+                            <label>Plant-ID</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                        </warehouse_id>
+                        </plant_id>
                         <certificate_path translate="label comment">
                             <label>Path to Certificate</label>
                             <comment>For security reasons, the certificate should be placed outside of the webroot.</comment>
@@ -103,15 +103,26 @@
                             <label>Tara Factor</label>
                             <frontend_type>text</frontend_type>
                             <validate>validate-number validate-zero-or-greater</validate>
-                            <sort_order>95</sort_order>
+                            <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </tara_factor>
+
+                        <operation_mode>
+                            <label>Operation Mode</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>swisspost_yellowcube/shipping_carrier_source_operation</source_model>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </operation_mode>
+
                         <title translate="label">
                             <label>Title</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>100</sort_order>
+                            <sort_order>120</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -119,7 +130,7 @@
                         <sallowspecific translate="label">
                             <label>Ship to Applicable Countries</label>
                             <frontend_type>select</frontend_type>
-                            <sort_order>110</sort_order>
+                            <sort_order>130</sort_order>
                             <frontend_class>shipping-applicable-country</frontend_class>
                             <source_model>adminhtml/system_config_source_shipping_allspecificcountries</source_model>
                             <show_in_default>1</show_in_default>
@@ -129,7 +140,7 @@
                         <specificcountry translate="label">
                             <label>Ship to Specific Countries</label>
                             <frontend_type>multiselect</frontend_type>
-                            <sort_order>120</sort_order>
+                            <sort_order>140</sort_order>
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -140,7 +151,7 @@
                             <label>Debug</label>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>130</sort_order>
+                            <sort_order>150</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -150,7 +161,7 @@
                             <comment>Send all product master data to YellowCube; only applies to products with the attribute "Sync with YellowCube" = Yes.</comment>
                             <button_label>Send All Product Data to YellowCube</button_label>
                             <frontend_model>swisspost_yellowcube/adminhtml_system_config_upload</frontend_model>
-                            <sort_order>140</sort_order>
+                            <sort_order>160</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -159,7 +170,7 @@
                             <label></label>
                             <button_label>Get Current Stock Data from YellowCube</button_label>
                             <frontend_model>swisspost_yellowcube/adminhtml_system_config_download</frontend_model>
-                            <sort_order>150</sort_order>
+                            <sort_order>170</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
