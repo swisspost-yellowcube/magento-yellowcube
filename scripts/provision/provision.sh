@@ -84,6 +84,7 @@ echo "done"
 echo "Creating MySQL DB"
 mysql -uroot -e "DROP DATABASE IF EXISTS magento;"
 mysql -uroot -e "CREATE DATABASE magento;"
+mysql -uroot -D magento < /vagrant/scripts/provision/magento_sample_data_for_1.9.0.0.sql
 echo "done"
 
 echo "Installing Magento"
