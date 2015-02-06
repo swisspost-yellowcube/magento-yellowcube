@@ -5,8 +5,9 @@ class Swisspost_YellowCube_Adminhtml_YellowCube_System_Config_SyncController ext
     public function downloadAction()
     {
         try {
-            $this->getSynchronizer()->updateAll();
-            Mage::log('download');
+            // @todo
+            //$this->getSynchronizer()->updateAll();
+            Mage::log('Swisspost Sync download');
             echo 1;
         } catch (Exception $e) {
             Mage::logException($e);
@@ -18,7 +19,7 @@ class Swisspost_YellowCube_Adminhtml_YellowCube_System_Config_SyncController ext
     {
         try {
             $this->getSynchronizer()->updateAll();
-            Mage::log('upload');
+            Mage::log('Swisspost Sync upload');
             echo 1;
         } catch (Exception $e) {
             Mage::logException($e);
