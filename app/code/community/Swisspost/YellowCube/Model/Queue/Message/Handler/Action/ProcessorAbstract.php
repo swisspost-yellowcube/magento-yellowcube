@@ -7,7 +7,7 @@ abstract class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor
      */
     public function getYellowCubeService()
     {
-        return Mage::getModel('swisspost_yellowcube/library_client');
+        return Mage::getModel('swisspost_yellowcube/library_client')->getService();
     }
 
     /**
