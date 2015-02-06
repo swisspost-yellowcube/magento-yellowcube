@@ -138,16 +138,21 @@ class Swisspost_YellowCube_Model_SplAutoloader extends Mage_Core_Model_Abstract
      */
     public function loadClass($className)
     {
-        $className = ltrim($className, '\\');
+        $className = ltrim($className, $this->_namespaceSeparator);
         $fileName = '';
-        if ($lastNsPos = strripos($className, '\\')) {
+        if ($lastNsPos = strripos($className, $this->_namespaceSeparator)) {
             $namespace = substr($className, 0, $lastNsPos);
             $className = substr($className, $lastNsPos + 1);
-            $fileName = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
+            $fileName = str_replace($this->_namespaceSeparator, DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
         }
-        $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
+
+        if (empty($fileName)) {
+            return;
+        }
+
+        $fileName .= $className . '.php';
         $fileName = stream_resolve_include_path($fileName);
-        if (false !== $fileName) {
+        if (false !== $fileName && file_exists($fileName)) {
             include_once $fileName;
         }
     }
