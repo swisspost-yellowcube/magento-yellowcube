@@ -14,6 +14,9 @@ class Swisspost_YellowCube_Helper_Data extends Mage_Core_Helper_Abstract
     const CONFIG_CERT_PASSWORD      = 'carriers/swisspost_yellowcube/certificate_password';
     const CONFIG_TARA_FACTOR        = 'carriers/swisspost_yellowcube/tara_factor';
     const CONFIG_OPERATION_MODE     = 'carriers/swisspost_yellowcube/operation_mode';
+    const CONFIG_DEBUG              = 'carriers/swisspost_yellowcube/debug';
+
+    const YC_LOG_FILE               = 'yellowcube.log';
 
     /**
      * Get Sender Id
@@ -102,6 +105,16 @@ class Swisspost_YellowCube_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getOperationMode()
     {
-        return (string) Mage::getStoreConfig(self::CONFIG_OPERATION_MODE, 'T');
+        return (string) Mage::getStoreConfig(self::CONFIG_OPERATION_MODE);
+    }
+
+    /**
+     * Get debug mode
+     *
+     * @return bool
+     */
+    public function getDebug()
+    {
+        return (bool) Mage::getStoreConfigFlag(self::CONFIG_DEBUG);
     }
 }
