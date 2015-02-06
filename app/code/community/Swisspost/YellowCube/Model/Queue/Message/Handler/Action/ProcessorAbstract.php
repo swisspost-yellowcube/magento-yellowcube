@@ -18,4 +18,13 @@ abstract class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor
     {
         return number_format($number, 3, '.', '');
     }
+
+    /**
+     * @param $description
+     * @return string
+     */
+    public function formatDescription($description)
+    {
+        return mb_strcut($description, 0, 40);
+    }
 }
