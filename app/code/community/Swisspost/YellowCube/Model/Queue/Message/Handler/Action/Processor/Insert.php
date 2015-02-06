@@ -17,8 +17,8 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Insert
         $article = new \YellowCube\ART\Article;
         $article
             ->setChangeFlag(\YellowCube\ART\ChangeFlag::INSERT)
-            ->setPlantID('Y006')
-            ->setDepositorNo('321654687')
+            ->setPlantID($data['plant_id'])
+            ->setDepositorNo($data['deposit_number'])
             ->setBaseUOM(\YellowCube\ART\UnitsOfMeasure\ISO::PCE)
             ->setAlternateUnitISO(\YellowCube\ART\UnitsOfMeasure\ISO::PCE)
             ->setArticleNo($data['product_sku'])
@@ -26,11 +26,15 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Insert
             ->setLength($this->formatUom($data['product_length']), $uom)
             ->setWidth($this->formatUom($data['product_width']), $uom)
             ->setHeight($this->formatUom($data['product_height']), $uom)
-            ->addArticleDescription($data['product_description'], 'de');
+            ->addArticleDescription($data['product_description'], 'de'); // @todo provide the language of the current description (possible values de|fr|it|en)
 
         $response = $this->getYellowCubeService()->insertArticleMasterData($article);
         if (!is_object($response) || !$response->isSuccess()) {
-            throw new Exception($data['product_sku'] . ' not synced :(');
+            $message = $data['product_sku'] . ' not inserted :(';
+            Mage::log($message . print_r($response, true), Zend_Log::ERR, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE, true);
+            Mage::throwException($message);
+        } else if (Mage::helper('swisspost_yellowcube')->getDebug()) {
+            Mage::log(print_r($response, true), Zend_Log::DEBUG, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE);
         }
     }
 }
