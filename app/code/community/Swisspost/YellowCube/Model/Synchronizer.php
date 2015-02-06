@@ -12,6 +12,23 @@ class Swisspost_YellowCube_Model_Synchronizer
      */
     protected $_queue;
 
+    public function insert(Mage_Catalog_Model_Product $product)
+    {
+        $this->getQueue()->send(Zend_Json::encode(array(
+            'action' => self::SYNC_ACTION_INSERT,
+            'plant_id' => $this->getHelper()->getPlantId(),
+            'deposit_number' => $this->getHelper()->getDepositorNumber(),
+            'product_id' => $product->getId(),
+            'product_sku' => $product->getSku(),
+            'product_weight' => $product->getWeight(),
+            'product_description' => $product->getDescription(),
+            'product_length' => $product->getData('yc_dimension_length'),
+            'product_width' => $product->getData('yc_dimension_width'),
+            'product_height' => $product->getData('yc_dimension_height'),
+            'product_uom' => $product->getData('yc_dimension_uom'),
+        )));
+    }
+
     public function updateAll()
     {
         /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
@@ -28,18 +45,7 @@ class Swisspost_YellowCube_Model_Synchronizer
         $collection->addFieldToFilter('yc_sync_with_yellowcube', 1);
 
         foreach ($collection as $product) {
-            /** @var Mage_Catalog_Model_Product $product */
-            $this->getQueue()->send(Zend_Json::encode(array(
-                'action' => self::SYNC_ACTION_INSERT,
-                'product_id' => $product->getId(),
-                'product_sku' => $product->getSku(),
-                'product_weight' => $product->getWeight(),
-                'product_description' => $product->getDescription(),
-                'product_length' => $product->getData('yc_dimension_length'),
-                'product_width' => $product->getData('yc_dimension_width'),
-                'product_height' => $product->getData('yc_dimension_height'),
-                'product_uom' => $product->getData('yc_dimension_uom'),
-            )));
+            $this->insert($product);
         }
     }
 
@@ -75,5 +81,10 @@ class Swisspost_YellowCube_Model_Synchronizer
             $this->_queue = Mage::getModel('swisspost_yellowcube/queue')->getInstance();
         }
         return $this->_queue;
+    }
+
+    public function getHelper()
+    {
+        return Mage::helper('swisspost_yellowcube');
     }
 }
