@@ -21,7 +21,7 @@ class Swisspost_YellowCube_Model_Synchronizer
             'product_id' => $product->getId(),
             'product_sku' => $product->getSku(),
             'product_weight' => $product->getWeight(),
-            'product_description' => $product->getDescription(),
+            'product_description' => mb_strcut($product->getDescription(), 0 , 40),
             'product_length' => $product->getData('yc_dimension_length'),
             'product_width' => $product->getData('yc_dimension_width'),
             'product_height' => $product->getData('yc_dimension_height'),
