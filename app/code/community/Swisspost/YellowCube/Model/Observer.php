@@ -8,28 +8,45 @@ class Swisspost_YellowCube_Model_Observer
 
     /**
      * @param Varien_Event_Observer $observer
+     * @return $this
      */
     public function handleProductSave(Varien_Event_Observer $observer)
     {
         /** @var Mage_Catalog_Model_Product $product */
         $product = $observer->getEvent()->getDataObject();
 
-        if (!(bool)$product->getData('yc_sync_with_yellowcube')) {
-            return;
+        // @todo Make it work with multiple websites. Value of yc_sync_with_yellowcube on save doesn't reflect the value of the default view if "Use default Value" is checked
+
+        /**
+         * Scenario
+         *
+         * - product is disabled or enabled => no change
+         * - yc_sync_with_yellowcube is Yes/No
+         *   - From No to Yes => insert into YC
+         *   - From No to No => no change
+         *   - From Yes to No => deactivate from YC
+         *
+         * - if duplicate, we do nothing as the attribute 'yc_sync_with_yellowcube' is No
+         */
+
+        if ((bool)$product->getData('yc_sync_with_yellowcube') && $this->hasDataChangedFor($product, array('yc_sync_with_yellowcube'))) {
+            $this->getSynchronizer()->insert($product);
+            return $this;
         }
 
-        if (!$product->isDisabled()
-            && ($this->isProductNew($product) || $this->hasDataChangedFor($product, array('name', 'weight')))
+        if (!(bool)$product->getData('yc_sync_with_yellowcube') && $this->hasDataChangedFor($product, array('yc_sync_with_yellowcube'))) {
+            $this->getSynchronizer()->deactivate($product);
+            return $this;
+        }
+
+        if (!(bool)$product->getData('yc_sync_with_yellowcube')) {
+            return $this;
+        }
+
+        if ($this->hasDataChangedFor($product, array('name', 'weight', 'yc_dimension_length', 'yc_dimension_width', 'yc_dimension_height', 'yc_dimension_uom'))
         ) {
             $this->getSynchronizer()->update($product);
-        }
-
-        if ($product->hasData('sku') && $this->hasDataChangedFor($product, 'status')) {
-            if ($product->getStatus() == Mage_Catalog_Model_Product_Status::STATUS_DISABLED) {
-                $this->getSynchronizer()->deactivate($product);
-            } else {
-                $this->getSynchronizer()->update($product);
-            }
+            return $this;
         }
     }
 
