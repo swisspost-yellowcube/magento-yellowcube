@@ -18,6 +18,7 @@ class Swisspost_YellowCube_Adminhtml_YellowCube_System_Config_SyncController ext
     public function uploadAction()
     {
         try {
+            // @todo care of the current website ID used
             $this->getSynchronizer()->updateAll();
             Mage::log('Swisspost Sync upload');
             echo 1;
