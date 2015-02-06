@@ -55,6 +55,15 @@
                 </observers>
             </catalog_product_delete_before>
 
+            <catalog_model_product_duplicate>
+                <observers>
+                    <catalog_product_duplicate_yellowcube>
+                        <class>swisspost_yellowcube/observer</class>
+                        <method>handleProductDuplicate</method>
+                    </catalog_product_duplicate_yellowcube>
+                </observers>
+            </catalog_model_product_duplicate>
+
             <resource_get_tablename>
                 <observers>
                     <swisspost_yellowcube_autoloader>

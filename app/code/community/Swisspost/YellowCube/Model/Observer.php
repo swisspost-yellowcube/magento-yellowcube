@@ -44,6 +44,22 @@ class Swisspost_YellowCube_Model_Observer
     }
 
     /**
+     * Event:
+     * - catalog_model_product_duplicate
+     *
+     * @param Varien_Event_Observer $observer
+     * @return $this
+     */
+    public function handleProductDuplicate(Varien_Event_Observer $observer)
+    {
+        /** @var Mage_Catalog_Model_Product $newProduct */
+        $newProduct = $observer->getEvent()->getNewProduct();
+        $newProduct->setData('yc_sync_with_yellowcube', 0);
+
+        return $this;
+    }
+
+    /**
      * @return Swisspost_YellowCube_Model_Synchronizer
      */
     public function getSynchronizer()
