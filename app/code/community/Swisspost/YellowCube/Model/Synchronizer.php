@@ -6,6 +6,7 @@ class Swisspost_YellowCube_Model_Synchronizer
     const SYNC_ACTION_UPDATE = 'update';
     const SYNC_ACTION_DEACTIVATE = 'deactivate';
     const SYNC_ACTION_DOWNLOAD_INVENTORY = 'inventorySync';
+    const SYNC_ORDER = 'order';
 
     /**
      * @var Zend_Queue
@@ -86,6 +87,57 @@ class Swisspost_YellowCube_Model_Synchronizer
     public function deactivate(Mage_Catalog_Model_Product $product)
     {
         $this->action($product, self::SYNC_ACTION_DEACTIVATE);
+        return $this;
+    }
+
+    /**
+     * @param Mage_Shipping_Model_Shipment_Request $request
+     * @return $this
+     */
+    public function ship(Mage_Shipping_Model_Shipment_Request $request)
+    {
+        $locale = Mage::app()->getLocale()->getLocaleCode();
+        $locale = explode('_', $locale);
+        $order = $request->getOrderShipment();
+
+        $positionItems = array();
+        foreach ($order->getAllItems() as $item) {
+            $positionItems[] = array(
+                'article_number' => $item->getSku(),
+                'article_title' => $item->getName(),
+                'article_qty' => $item->getQty(),
+            );
+        }
+
+        $this->getQueue()->send(Zend_Json::encode(array(
+            'action' => self::SYNC_ORDER,
+            'store_id' => $request->getStoreId(),
+            'plant_id' => $this->getHelper()->getPlantId($request->getStoreId()),
+
+            // Order Header
+            'deposit_number' => $this->getHelper()->getDepositorNumber($request->getStoreId()),
+            'order_id' => $order->getOrderId(),
+            'order_date' => date('Ymd'),
+
+            // Partner Address
+            'partner_type' => Swisspost_YellowCube_Helper_Data::PARTNER_TYPE,
+            'partner_number' => $this->getHelper()->getPartnerNumber($request->getStoreId()),
+            'partner_name' => $request->getShipperContactCompanyName(),
+            'partner_street' => $request->getShipperAddressStreet(),
+            'partner_country_code' => $request->getShipperAddressCountryCode(),
+            'partner_city' => $request->getShipperAddressCity(),
+            'partner_zip_code' => $request->getShipperAddressPostalCode(),
+            'partner_phone' => $request->getShipperContactPhoneNumber(),
+            'partner_email' => $request->getShipperEmail(),
+            'partner_language' => $locale[0], // de|fr|it|en ...
+
+            // ValueAddedServices - AdditionalService
+            'service_basic_shipping' => $request->getShippingMethod(),
+
+            // Order Positions
+            'items' => $positionItems
+        )));
+
         return $this;
     }
 

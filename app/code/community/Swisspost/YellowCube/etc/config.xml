@@ -3,7 +3,7 @@
 <config>
     <modules>
         <Swisspost_YellowCube>
-            <version>1.0.0.0</version>
+            <version>1.0.0.1</version>
         </Swisspost_YellowCube>
     </modules>
 
@@ -82,6 +82,15 @@
                 </observers>
             </catalog_product_delete_before>
 
+            <sales_order_shipment_save_before>
+                <observers>
+                    <catalog_product_yellowcube_sync>
+                        <class>swisspost_yellowcube/observer</class>
+                        <method>handleShipmentSaveBefore</method>
+                    </catalog_product_yellowcube_sync>
+                </observers>
+            </sales_order_shipment_save_before>
+
             <catalog_model_product_duplicate>
                 <observers>
                     <catalog_product_duplicate_yellowcube>
@@ -112,7 +121,7 @@
             </add_spl_autoloader>
         </events>
         <carriers>
-            <swisspost_yellowcube>
+            <yellowcube>
                 <methods>
                     <eco translate="label" module="swisspost_yellowcube">
                         <label>PostPac Economy</label>
@@ -175,7 +184,7 @@
                         <code>LKW EXPRESS</code>
                     </lkw_express>
                 </methods>
-            </swisspost_yellowcube>
+            </yellowcube>
         </carriers>
     </global>
     <admin>
@@ -200,13 +209,13 @@
     </adminhtml>
     <default>
         <carriers>
-            <swisspost_yellowcube>
+            <yellowcube>
                 <active>0</active>
                 <model>swisspost_yellowcube/shipping_carrier_rate</model>
-                <title>SwissPost</title>
+                <title>SwissPost YellowCube</title>
                 <tara_factor>0.95</tara_factor>
                 <operation_mode>T</operation_mode>
-            </swisspost_yellowcube>
+            </yellowcube>
         </carriers>
     </default>
     <crontab>

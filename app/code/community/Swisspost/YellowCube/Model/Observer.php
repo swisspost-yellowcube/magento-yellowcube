@@ -9,6 +9,9 @@ class Swisspost_YellowCube_Model_Observer
     protected $_attributeProductIds = array();
 
     /**
+     * Event
+     * - catalog_product_attribute_update_before
+     *
      * @param Varien_Event_Observer $observer
      */
     public function handleAttributeProductSave(Varien_Event_Observer $observer)
@@ -78,6 +81,9 @@ class Swisspost_YellowCube_Model_Observer
     }
 
     /**
+     * Event
+     * - catalog_product_attribute_update_after
+     *
      * @param Varien_Event_Observer $observer
      * @return $this
      */
@@ -119,6 +125,9 @@ class Swisspost_YellowCube_Model_Observer
     }
 
     /**
+     * Event
+     * - catalog_product_save_before
+     *
      * @param Varien_Event_Observer $observer
      * @throws Mage_Core_Exception
      */
@@ -134,6 +143,9 @@ class Swisspost_YellowCube_Model_Observer
     }
 
     /**
+     * Event
+     * - catalog_product_save_after
+     *
      * @param Varien_Event_Observer $observer
      * @return $this
      */
@@ -173,8 +185,7 @@ class Swisspost_YellowCube_Model_Observer
             return $this;
         }
 
-        if ($this->hasDataChangedFor($product, array('name', 'weight', 'yc_dimension_length', 'yc_dimension_width', 'yc_dimension_height', 'yc_dimension_uom'))
-        ) {
+        if ($this->hasDataChangedFor($product, array('name', 'weight', 'yc_dimension_length', 'yc_dimension_width', 'yc_dimension_height', 'yc_dimension_uom'))) {
             Mage::log('Updated product ' . $product->getId());
             $this->getSynchronizer()->update($product);
             return $this;
@@ -182,6 +193,9 @@ class Swisspost_YellowCube_Model_Observer
     }
 
     /**
+     * Event
+     * - catalog_product_delete_before
+     *
      * @param Varien_Event_Observer $observer
      */
     public function handleProductDelete(Varien_Event_Observer $observer)
@@ -203,6 +217,26 @@ class Swisspost_YellowCube_Model_Observer
         /** @var Mage_Catalog_Model_Product $newProduct */
         $newProduct = $observer->getEvent()->getNewProduct();
         $newProduct->setData('yc_sync_with_yellowcube', 0);
+
+        return $this;
+    }
+
+    /**
+     * Event
+     * - sales_order_shipment_save_before
+     *
+     * @param Varien_Event_Observer $observer
+     * @return $this
+     */
+    public function handleShipmentSaveBefore(Varien_Event_Observer $observer)
+    {
+        /* @var $shipment Mage_Sales_Model_Order_Shipment */
+        $shipment = $observer->getShipment();
+        $carrier = $shipment->getOrder()->getShippingCarrier();
+
+        if ($carrier instanceof Swisspost_YellowCube_Model_Shipping_Carrier_Rate) {
+            Mage::getModel('shipping/shipping')->requestToShipment($shipment);
+        }
 
         return $this;
     }

@@ -20,7 +20,7 @@ class Swisspost_YellowCube_Model_Shipping_Carrier_Source_Method
     public function getMethods()
     {
         $result = array();
-        foreach(Mage::getConfig()->getNode('global/carriers/swisspost_yellowcube/methods')->asArray() as $methodData) {
+        foreach(Mage::getConfig()->getNode('global/carriers/yellowcube/methods')->asArray() as $methodData) {
             if (!isset($methodData['code']) || !isset($methodData['label'])) {
                 continue;
             }

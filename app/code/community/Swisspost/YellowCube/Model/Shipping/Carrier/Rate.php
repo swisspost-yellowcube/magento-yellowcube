@@ -6,7 +6,7 @@ class Swisspost_YellowCube_Model_Shipping_Carrier_Rate extends Mage_Shipping_Mod
     /**
      * @var string
      */
-    protected $_code = 'swisspost_yellowcube';
+    protected $_code = 'yellowcube';
 
     /**
      * @var bool
@@ -65,4 +65,15 @@ class Swisspost_YellowCube_Model_Shipping_Carrier_Rate extends Mage_Shipping_Mod
         return $arr;
     }
 
+    /**
+     * @param Mage_Shipping_Model_Shipment_Request $request
+     * @return Varien_Object
+     */
+    public function requestToShipment(Mage_Shipping_Model_Shipment_Request $request)
+    {
+        // No error is returned as it is an asynchrone process with yellowcube
+        Mage::getSingleton('swisspost_yellowcube/synchronizer')->ship($request);
+
+        return new Varien_Object();
+    }
 }

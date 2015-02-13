@@ -4,7 +4,7 @@
     <sections>
         <carriers>
             <groups>
-                <swisspost_yellowcube translate="label" module="swisspost_yellowcube">
+                <yellowcube translate="label" module="swisspost_yellowcube">
                     <label>SwissPost</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>150</sort_order>
@@ -176,7 +176,7 @@
                             <show_in_store>0</show_in_store>
                         </yc_download_data>
                     </fields>
-                </swisspost_yellowcube>
+                </yellowcube>
             </groups>
         </carriers>
     </sections>
