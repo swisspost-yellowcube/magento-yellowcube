@@ -38,6 +38,33 @@
             </swisspost_yellowcube_setup>
         </resources>
         <events>
+            <catalog_product_attribute_update_before>
+                <observers>
+                    <catalog_product_yellowcube_sync>
+                        <type>singleton</type>
+                        <class>swisspost_yellowcube/observer</class>
+                        <method>handleAttributeProductSave</method>
+                    </catalog_product_yellowcube_sync>
+                </observers>
+            </catalog_product_attribute_update_before>
+            <catalog_product_attribute_update_after>
+                <observers>
+                    <catalog_product_yellowcube_sync>
+                        <type>singleton</type>
+                        <class>swisspost_yellowcube/observer</class>
+                        <method>handleAttributeProductSaveAfter</method>
+                    </catalog_product_yellowcube_sync>
+                </observers>
+            </catalog_product_attribute_update_after>
+
+            <catalog_product_save_before>
+                <observers>
+                    <catalog_product_yellowcube_sync>
+                        <class>swisspost_yellowcube/observer</class>
+                        <method>handleBeforeProductSave</method>
+                    </catalog_product_yellowcube_sync>
+                </observers>
+            </catalog_product_save_before>
             <catalog_product_save_after>
                 <observers>
                     <catalog_product_yellowcube_sync>
@@ -177,7 +204,7 @@
                 <active>0</active>
                 <model>swisspost_yellowcube/shipping_carrier_rate</model>
                 <title>SwissPost</title>
-                <tara_factor>1</tara_factor>
+                <tara_factor>0.95</tara_factor>
                 <operation_mode>T</operation_mode>
             </swisspost_yellowcube>
         </carriers>

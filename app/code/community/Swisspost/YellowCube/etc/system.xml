@@ -102,7 +102,7 @@
                         <tara_factor translate="label">
                             <label>Tara Factor</label>
                             <frontend_type>text</frontend_type>
-                            <validate>validate-number validate-zero-or-greater</validate>
+                            <validate>validate-number validate-greater-than-zero</validate>
                             <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

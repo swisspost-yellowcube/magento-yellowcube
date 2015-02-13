@@ -27,11 +27,26 @@ class Swisspost_YellowCube_Model_Synchronizer
             'product_width' => $product->getData('yc_dimension_width'),
             'product_height' => $product->getData('yc_dimension_height'),
             'product_uom' => $product->getData('yc_dimension_uom'),
+            'product_volume' => $product->getData('yc_dimension_height') * $product->getData('yc_dimension_length') *  $product->getData('yc_dimension_width'),
+            'tara_factor' => Mage::getStoreConfig(Swisspost_YellowCube_Helper_Data::CONFIG_TARA_FACTOR, Mage::app()->getWebsite($product->getWebsiteId())->getDefaultStore()->getId()),
         )));
 
         return $this;
     }
 
+    /**
+     * @param Mage_Catalog_Model_Product $product
+     * @return $this
+     */
+    public function insert(Mage_Catalog_Model_Product $product)
+    {
+        $this->action($product);
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
     public function updateAll()
     {
         /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
@@ -54,23 +69,35 @@ class Swisspost_YellowCube_Model_Synchronizer
         return $this;
     }
 
+    /**
+     * @param Mage_Catalog_Model_Product $product
+     * @return $this
+     */
     public function update(Mage_Catalog_Model_Product $product)
     {
         $this->action($product, self::SYNC_ACTION_UPDATE);
         return $this;
     }
 
+    /**
+     * @param Mage_Catalog_Model_Product $product
+     * @return $this
+     */
     public function deactivate(Mage_Catalog_Model_Product $product)
     {
         $this->action($product, self::SYNC_ACTION_DEACTIVATE);
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function syncInventoryWithYC()
     {
         $this->getQueue()->send(Zend_Json::encode(array(
             'action' => self::SYNC_ACTION_DOWNLOAD_INVENTORY
         )));
+        return $this;
     }
 
     /**
