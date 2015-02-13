@@ -27,4 +27,13 @@ abstract class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor
     {
         return mb_strcut($description, 0, 40);
     }
+
+    /**
+     * @param string $sku
+     * @return string
+     */
+    public function formatSku($sku)
+    {
+        return str_replace(' ', '_', $sku);
+    }
 }
