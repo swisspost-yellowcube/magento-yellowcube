@@ -17,6 +17,8 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Insert
             ? \YellowCube\ART\UnitsOfMeasure\ISO::MTR
             : \YellowCube\ART\UnitsOfMeasure\ISO::CMT;
 
+        $uomq = ($uom == \YellowCube\ART\UnitsOfMeasure\ISO::MTR) ? \YellowCube\ART\UnitsOfMeasure\ISO::MTQ : \YellowCube\ART\UnitsOfMeasure\ISO::CMQ;
+
         $article = new \YellowCube\ART\Article;
         $article
             ->setChangeFlag($this->_changeFlag)
@@ -24,11 +26,13 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Insert
             ->setDepositorNo($data['deposit_number'])
             ->setBaseUOM(\YellowCube\ART\UnitsOfMeasure\ISO::PCE)
             ->setAlternateUnitISO(\YellowCube\ART\UnitsOfMeasure\ISO::PCE)
-            ->setArticleNo($data['product_sku'])
+            ->setArticleNo($this->formatSku($data['product_sku']))
             ->setNetWeight($this->formatUom($data['product_weight']), \YellowCube\ART\UnitsOfMeasure\ISO::KGM)
+            ->setGrossWeight($this->formatUom($data['product_weight'] * $data['tara_factor']), \YellowCube\ART\UnitsOfMeasure\ISO::KGM)
             ->setLength($this->formatUom($data['product_length']), $uom)
             ->setWidth($this->formatUom($data['product_width']), $uom)
             ->setHeight($this->formatUom($data['product_height']), $uom)
+            ->setVolume($this->formatUom($data['product_volume']), $uomq)
             ->addArticleDescription($this->formatDescription($data['product_name']), 'de'); // @todo provide the language of the current description (possible values de|fr|it|en)
 
         $response = $this->getYellowCubeService()->insertArticleMasterData($article);
