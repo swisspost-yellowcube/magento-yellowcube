@@ -186,6 +186,16 @@
                 </methods>
             </yellowcube>
         </carriers>
+
+        <template>
+            <email>
+                <system_admin_notification_email_template translate="label" module="swisspost_yellowcube">
+                    <label>Admin Email Notification</label>
+                    <file>swisspost/admin_message.html</file>
+                    <type>text</type>
+                </system_admin_notification_email_template>
+            </email>
+        </template>
     </global>
     <admin>
         <routers>
@@ -217,6 +227,11 @@
                 <operation_mode>T</operation_mode>
             </yellowcube>
         </carriers>
+        <system>
+            <messages>
+                <notification_email_template>system_admin_notification_email_template</notification_email_template>
+            </messages>
+        </system>
     </default>
     <crontab>
         <jobs>

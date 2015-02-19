@@ -3,6 +3,11 @@
 abstract class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_ProcessorAbstract
 {
     /**
+     * @var Zend_Queue
+     */
+    protected $_queue;
+
+    /**
      * @return \YellowCube\Service
      */
     public function getYellowCubeService()
@@ -35,5 +40,25 @@ abstract class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor
     public function formatSku($sku)
     {
         return str_replace(' ', '_', $sku);
+    }
+
+    /**
+     * @param $string
+     * @return string
+     */
+    public function cutString($string, $length = 35)
+    {
+        return mb_strcut($string, 0, $length);
+    }
+
+    /**
+     * @return Zend_Queue
+     */
+    public function getQueue()
+    {
+        if (null === $this->_queue) {
+            $this->_queue = Mage::getModel('swisspost_yellowcube/queue')->getInstance();
+        }
+        return $this->_queue;
     }
 }

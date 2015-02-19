@@ -6,7 +6,8 @@ class Swisspost_YellowCube_Model_Synchronizer
     const SYNC_ACTION_UPDATE = 'update';
     const SYNC_ACTION_DEACTIVATE = 'deactivate';
     const SYNC_ACTION_DOWNLOAD_INVENTORY = 'inventorySync';
-    const SYNC_ORDER = 'order';
+    const SYNC_ORDER_NEW = 'order_new';
+    const SYNC_ORDER_UPDATE = 'order_update';
 
     /**
      * @var Zend_Queue
@@ -110,7 +111,7 @@ class Swisspost_YellowCube_Model_Synchronizer
         }
 
         $this->getQueue()->send(Zend_Json::encode(array(
-            'action' => self::SYNC_ORDER,
+            'action' => self::SYNC_ORDER_NEW,
             'store_id' => $request->getStoreId(),
             'plant_id' => $this->getHelper()->getPlantId($request->getStoreId()),
 
@@ -163,6 +164,9 @@ class Swisspost_YellowCube_Model_Synchronizer
         return $this->_queue;
     }
 
+    /**
+     * @return Swisspost_YellowCube_Helper_Data
+     */
     public function getHelper()
     {
         return Mage::helper('swisspost_yellowcube');
