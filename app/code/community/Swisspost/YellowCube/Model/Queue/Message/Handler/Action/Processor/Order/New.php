@@ -89,7 +89,8 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Ne
 
                 $this->getQueue()->send(Zend_Json::encode(array(
                     'action' => Swisspost_YellowCube_Model_Synchronizer::SYNC_ORDER_UPDATE,
-                    'order_id' => $data['order_id']
+                    'order_id' => $data['order_id'],
+                    'yc_reference' => $response->getReference()
                 )));
             }
         } catch (Exception $e) {

@@ -26,11 +26,11 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
         $helperTools = Mage::helper('swisspost_yellowcube/tools');
 
         $shipment = Mage::getModel('sales/order_shipment')->load($data['order_id'], 'order_id');
-        $response = $this->getYellowCubeService()->getYCCustomerOrderStatus($data['order_id']);
+        $response = $this->getYellowCubeService()->getYCCustomerOrderStatus($data['yc_reference']);
 
         try {
             if (!is_object($response) || !$response->isSuccess()) {
-                $message = $helper->__('Order #%s could not be transmitted to YellowCube: "%s".', $data['order_id'], $response->getStatusText());
+                $message = $helper->__('Order #%s with YellowCube Transaction ID could not be transmitted to YellowCube: "%s".', $data['order_id'], $data['yc_reference'], $response->getStatusText());
                 $shipment
                     ->addComment($message, false, false)
                     ->save();
@@ -47,6 +47,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
                     $this->getQueue()->send(Zend_Json::encode(array(
                         'action' => Swisspost_YellowCube_Model_Synchronizer::SYNC_ORDER_UPDATE,
                         'order_id' => $data['order_id'],
+                        'yc_reference' => $data['yc_reference'],
                         'try' => $data['try']++
                     )));
                 }
@@ -94,6 +95,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
                 $this->getQueue()->send(Zend_Json::encode(array(
                     'action' => Swisspost_YellowCube_Model_Synchronizer::SYNC_ORDER_UPDATE,
                     'order_id' => $data['order_id'],
+                    'yc_reference' => $data['yc_reference'],
                     'try' => $data['try']++
                 )));
             }
