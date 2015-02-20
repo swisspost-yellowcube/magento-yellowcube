@@ -243,6 +243,14 @@
                     <model>swisspost_yellowcube/queue_processor::process</model>
                 </run>
             </yc_process_queue>
+            <yc_inventory_sync>
+                <schedule>
+                    <cron_expr>30 1 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>swisspost_yellowcube/cron::inventory</model>
+                </run>
+            </yc_inventory_sync>
         </jobs>
     </crontab>
 </config>

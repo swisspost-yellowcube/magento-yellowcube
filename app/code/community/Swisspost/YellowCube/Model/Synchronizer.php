@@ -2,12 +2,13 @@
 
 class Swisspost_YellowCube_Model_Synchronizer
 {
-    const SYNC_ACTION_INSERT = 'insert';
-    const SYNC_ACTION_UPDATE = 'update';
-    const SYNC_ACTION_DEACTIVATE = 'deactivate';
-    const SYNC_ACTION_DOWNLOAD_INVENTORY = 'inventorySync';
-    const SYNC_ORDER_NEW = 'order_new';
-    const SYNC_ORDER_UPDATE = 'order_update';
+    const SYNC_ACTION_INSERT                = 'insert';
+    const SYNC_ACTION_UPDATE                = 'update';
+    const SYNC_ACTION_DEACTIVATE            = 'deactivate';
+    const SYNC_ACTION_DOWNLOAD_INVENTORY    = 'inventorySync';
+    const SYNC_ORDER_NEW                    = 'order_new';
+    const SYNC_ORDER_UPDATE                 = 'order_update';
+    const SYNC_INVENTORY                    = 'inventory';
 
     /**
      * @var Zend_Queue

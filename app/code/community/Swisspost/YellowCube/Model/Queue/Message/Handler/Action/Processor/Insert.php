@@ -42,7 +42,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Insert
             Mage::log($message . print_r($response, true), Zend_Log::ERR, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE, true);
             Mage::throwException($message);
         } else if (Mage::helper('swisspost_yellowcube')->getDebug()) {
-            Mage::log(print_r($response, true), Zend_Log::DEBUG, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE);
+            Mage::log(print_r($response, true), Zend_Log::DEBUG, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE, true);
         }
 
         return $this;

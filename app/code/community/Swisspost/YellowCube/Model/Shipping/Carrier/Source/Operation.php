@@ -1,11 +1,11 @@
 <?php
 /**
- * Liip
+ * Liip AG
  *
  * @author      Sylvain Rayé <sylvain.raye at diglin.com>
  * @category    yellowcube
  * @package     Swisspost_yellowcube
- * @copyright   Copyright (c) 2015 Liip
+ * @copyright   Copyright (c) 2015 Liip AG
  */
 
 /**
