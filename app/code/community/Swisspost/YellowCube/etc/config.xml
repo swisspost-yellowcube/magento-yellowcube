@@ -248,7 +248,7 @@
                     <cron_expr>30 1 * * *</cron_expr>
                 </schedule>
                 <run>
-                    <model>swisspost_yellowcube/cron::inventory</model>
+                    <model>swisspost_yellowcube/observer::handleInventory</model>
                 </run>
             </yc_inventory_sync>
         </jobs>
