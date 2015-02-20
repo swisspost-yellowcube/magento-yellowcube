@@ -12,7 +12,7 @@
 /**
  * Class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order
  */
-class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Pending
+class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Update
     extends Swisspost_YellowCube_Model_Queue_Message_Handler_Action_ProcessorAbstract
     implements Swisspost_YellowCube_Model_Queue_Message_Handler_Action_ProcessorInterface
 {
