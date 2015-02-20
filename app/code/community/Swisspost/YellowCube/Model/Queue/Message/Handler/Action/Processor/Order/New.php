@@ -31,7 +31,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Ne
         $partner
             ->setPartnerType($data['partner_type'])
             ->setPartnerNo($this->cutString($data['partner_number']), 10)
-            ->setPartnerReference($this->cutString('Liip AG'), 50)// @todo do we have to keep Liip AG here?
+            ->setPartnerReference($this->cutString('Liip AG - Magento'), 50)// @todo do we have to keep Liip AG here?
             ->setName1($this->cutString($data['partner_name']))
             ->setStreet($this->cutString($data['partner_street']))
             ->setCountryCode($data['partner_country_code'])

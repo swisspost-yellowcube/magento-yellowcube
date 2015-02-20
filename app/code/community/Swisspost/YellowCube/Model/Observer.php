@@ -241,7 +241,7 @@ class Swisspost_YellowCube_Model_Observer
         $shipment = $observer->getShipment();
         $carrier = $shipment->getOrder()->getShippingCarrier();
 
-        if ($carrier instanceof Swisspost_YellowCube_Model_Shipping_Carrier_Rate) {
+        if ($carrier instanceof Swisspost_YellowCube_Model_Shipping_Carrier_Rate && $shipment->getOrder()->getIsInProcess()) {
             Mage::getModel('shipping/shipping')->requestToShipment($shipment);
         }
 
