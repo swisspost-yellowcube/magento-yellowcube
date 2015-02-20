@@ -23,9 +23,6 @@ class Swisspost_YellowCube_Model_Library_Client
     {
         $helper = Mage::helper('swisspost_yellowcube');
 
-//        $senderId = $helper->getSenderId();
-//        $endpoint = $helper->getEndpoint();
-//        $operationMode = $helper->getOperationMode();
         $certificatePath = $helper->getCertificatePath();
         $certificatePassword = $helper->getCertificatePassword();
 
@@ -43,7 +40,7 @@ class Swisspost_YellowCube_Model_Library_Client
         );
 
         // Certificate handling
-        if (in_array($helper->getOperationMode(), array('P', 'D'))) {
+        if (in_array($helper->getOperationMode(), array('P', 'T'))) {
             if (!empty($certificatePath) && file_exists($certificatePath)) {
                 $config->setCertificateFilePath($certificatePath, $certificatePassword);
             }

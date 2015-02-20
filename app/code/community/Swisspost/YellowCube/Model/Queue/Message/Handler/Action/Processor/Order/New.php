@@ -61,8 +61,8 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Ne
             $ycOrder->addOrderPosition($position);
         }
 
-        $shipment = Mage::getModel('sales/order_shipment')->load($data['order_id'], 'order_id');
         $response = $this->getYellowCubeService()->createYCCustomerOrder($ycOrder);
+        $shipment = Mage::getModel('sales/order_shipment')->load($data['order_id'], 'order_id');
 
         try {
             if (!is_object($response) || !$response->isSuccess()) {
@@ -83,10 +83,24 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Ne
                     Mage::log(print_r($response, true), Zend_Log::DEBUG, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE);
                 }
 
+                /**
+                 * Define yc_shipped to 0 to be used later in BAR process that the shipping has not been done
+                 */
+                reset($data['items']);
+                foreach ($shipment->getItemsCollection() as $item) {
+                    /* @var $item Mage_Sales_Model_Order_Shipment_Item */
+                    if ($this->inMultiArray($item->getProductId(), $data['items'])) {
+                        $item
+                            ->setAdditionalData(Zend_Json::encode(array('yc_shipped' => 0)))
+                            ->save();
+                    }
+                }
+
                 $shipment
                     ->addComment($helper->__('Order #%s was successfully transmitted to YellowCube. Received reference number %s and status message "%s".', $data['order_id'], $response->getReference(), $response->getStatusText()), false, false)
                     ->save();
 
+                // WAR Message
                 $this->getQueue()->send(Zend_Json::encode(array(
                     'action' => Swisspost_YellowCube_Model_Synchronizer::SYNC_ORDER_UPDATE,
                     'order_id' => $data['order_id'],

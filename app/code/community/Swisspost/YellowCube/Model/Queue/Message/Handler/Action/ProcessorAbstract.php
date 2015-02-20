@@ -61,4 +61,23 @@ abstract class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor
         }
         return $this->_queue;
     }
+
+    /**
+     * @param $elem
+     * @param $array
+     * @return bool
+     */
+    function inMultiArray($elem, $array)
+    {
+        foreach ($array as $key => $value) {
+            if ($value == $elem) {
+                return true;
+            } elseif (is_array($value)) {
+                if (in_multiarray($elem, $value))
+                    return true;
+            }
+        }
+
+        return false;
+    }
 }

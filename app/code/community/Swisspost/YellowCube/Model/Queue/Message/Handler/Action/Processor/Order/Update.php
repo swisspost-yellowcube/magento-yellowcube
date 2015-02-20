@@ -60,6 +60,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
                 if ($response->isSuccess() && !$response->isPending() && !$response->isError()) {
 
                     $goodsIssueList = $this->getYellowCubeService()->getYCCustomerOrderReply($data['order_id']);
+                    $shippingUrl = '';
 
                     foreach ($goodsIssueList as $goodsIssue) {
                         $header = $goodsIssue->getCustomerOrderHeader();
@@ -73,16 +74,28 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
                         }
                     }
 
-                    if (!empty($goodsIssueList)) {
-                        //Add a message to the order history incl. link to shipping infos
-                        $message = $helper->__('Your order has been shipped. You can use the following url for shipping tracking: %s', $shippingUrl);
+                    if (Mage::helper('swisspost_yellowcube')->getDebug()) {
+                        Mage::log(print_r($goodsIssueList, true), Zend_Log::DEBUG, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE);
+                    }
 
+                    if (!empty($goodsIssueList)) {
+                        /**
+                         * Define yc_shipped to 1 to be used later in BAR process that the shipping has been done
+                         */
+                        foreach ($shipment->getItemsCollection() as $item) {
+                            /* @var $item Mage_Sales_Model_Order_Shipment_Item */
+                            if ($this->inMultiArray($item->getProductId(), $data['items'])) {
+                                $item
+                                    ->setAdditionalData(Zend_Json::encode(array('yc_shipped' => 1)))
+                                    ->save();
+                            }
+                        }
+
+                        // Add a message to the order history incl. link to shipping infos
+                        $message = $helper->__('Your order has been shipped. You can use the following url for shipping tracking: %s', $shippingUrl);
                         $shipment
                             ->addComment($helper->__($message), true, true)
                             ->save();
-
-                        //Update the order status to complete
-                        //commerce_order_status_update($order, 'complete');
                     }
                 }
             }

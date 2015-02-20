@@ -10,11 +10,18 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Inventor
      */
     public function process(array $data)
     {
+
+        $processor = new Swisspost_YellowCube_Model_Queue_Processor();
+        $processor->process();
+
         $stockItems = $this->getYellowCubeService()->getInventory();
 
         Mage::log($this->getHelper()->__('YellowCube reports %d products with a stock level', count($stockItems)), Zend_Log::INFO, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE);
 
         foreach ($stockItems as $product) {
+
+            // @todo take in account product not considered as shipped in calculation
+
             $this->update($product->getArticleNo(), array('qty' => $product->getQuantityUOM()->get()));
         }
 

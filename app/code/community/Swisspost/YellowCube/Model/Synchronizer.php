@@ -5,7 +5,6 @@ class Swisspost_YellowCube_Model_Synchronizer
     const SYNC_ACTION_INSERT                = 'insert';
     const SYNC_ACTION_UPDATE                = 'update';
     const SYNC_ACTION_DEACTIVATE            = 'deactivate';
-    const SYNC_ACTION_DOWNLOAD_INVENTORY    = 'inventorySync';
     const SYNC_ORDER_NEW                    = 'order_new';
     const SYNC_ORDER_UPDATE                 = 'order_update';
     const SYNC_INVENTORY                    = 'inventory';
@@ -105,6 +104,7 @@ class Swisspost_YellowCube_Model_Synchronizer
         $positionItems = array();
         foreach ($order->getAllItems() as $item) {
             $positionItems[] = array(
+                'article_id' => $item->getId(),
                 'article_number' => $item->getSku(),
                 'article_title' => $item->getName(),
                 'article_qty' => $item->getQty(),
@@ -149,7 +149,7 @@ class Swisspost_YellowCube_Model_Synchronizer
     public function syncInventoryWithYC()
     {
         $this->getQueue()->send(Zend_Json::encode(array(
-            'action' => self::SYNC_ACTION_DOWNLOAD_INVENTORY
+            'action' => self::SYNC_INVENTORY
         )));
         return $this;
     }
