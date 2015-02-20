@@ -23,15 +23,13 @@ class Swisspost_YellowCube_Model_Library_Client
     {
         $helper = Mage::helper('swisspost_yellowcube');
 
-        $senderId = $helper->getSenderId();
-        $endpoint = $helper->getEndpoint();
-        $operationMode = $helper->getOperationMode();
+//        $senderId = $helper->getSenderId();
+//        $endpoint = $helper->getEndpoint();
+//        $operationMode = $helper->getOperationMode();
         $certificatePath = $helper->getCertificatePath();
         $certificatePassword = $helper->getCertificatePassword();
 
-        if (empty($senderId) || empty($endpoint) || empty($operationMode)
-            || (in_array($helper->getOperationMode(), array('P', 'D')) && empty($certificatePath) && empty($certificatePassword))
-        ) {
+        if ($helper->isConfigured()) {
             Mage::throwException(
                 $helper->__('YellowCube Extension is not properly configured. Please <a href="%s">configure</a> it before to continue.',
                     Mage::getUrl('system_config/edit/section/carriers')));

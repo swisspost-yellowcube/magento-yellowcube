@@ -151,4 +151,27 @@ class Swisspost_YellowCube_Helper_Data extends Mage_Core_Helper_Abstract
             return Mage::$method($path);
         }
     }
+
+    /**
+     * @param string $storeId
+     * @return bool
+     */
+    public function isConfigured($storeId = Mage_Core_Model_Store::ADMIN_CODE)
+    {
+        $senderId = $this->getSenderId($storeId);
+        $endpoint = $this->getEndpoint($storeId);
+        $operationMode = $this->getOperationMode($storeId);
+        $certificatePath = $this->getCertificatePath($storeId);
+        $certificatePassword = $this->getCertificatePassword($storeId);
+
+        if (empty($senderId) || empty($endpoint) || empty($operationMode)
+            || (in_array($this->getOperationMode($storeId), array('P', 'D')) && empty($certificatePath) && empty($certificatePassword))
+        ) {
+            return false;
+        }
+
+        return true;
+
+    }
+
 }

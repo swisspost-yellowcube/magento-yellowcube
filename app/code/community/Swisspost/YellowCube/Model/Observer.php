@@ -156,6 +156,13 @@ class Swisspost_YellowCube_Model_Observer
 
         // @todo Make it work with multiple websites. Note: value of yc_sync_with_yellowcube on product save doesn't reflect the value of the default view if "Use default Value" is checked
 
+        $helper = Mage::helper('swisspost_yellowcube');
+        if (!$helper->isConfigured(/* $storeId */) && (bool)$product->getData('yc_sync_with_yellowcube')) {
+            Mage::throwException($helper->__('Please, configure YellowCube before to save the product having YellowCube option enabled.'));
+        } else if (!$helper->isConfigured(/* $storeId */)) {
+            return $this;
+        }
+
         /**
          * Scenario
          *
