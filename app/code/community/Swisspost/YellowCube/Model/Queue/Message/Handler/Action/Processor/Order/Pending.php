@@ -9,12 +9,6 @@
  * @copyright   Copyright (c) 2015 Liip
  */
 
-use \YellowCube\WAB\Partner;
-use \YellowCube\WAB\Order;
-use \YellowCube\WAB\OrderHeader;
-use \YellowCube\WAB\Position;
-use \YellowCube\WAB\AdditionalService\BasicShippingServices;
-
 /**
  * Class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order
  */
