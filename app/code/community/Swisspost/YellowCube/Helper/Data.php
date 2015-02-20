@@ -165,7 +165,7 @@ class Swisspost_YellowCube_Helper_Data extends Mage_Core_Helper_Abstract
         $certificatePassword = $this->getCertificatePassword($storeId);
 
         if (empty($senderId) || empty($endpoint) || empty($operationMode)
-            || (in_array($this->getOperationMode($storeId), array('P', 'D')) && empty($certificatePath) && empty($certificatePassword))
+            || (in_array($this->getOperationMode($storeId), array('P')) && empty($certificatePath) && empty($certificatePassword))
         ) {
             return false;
         }
