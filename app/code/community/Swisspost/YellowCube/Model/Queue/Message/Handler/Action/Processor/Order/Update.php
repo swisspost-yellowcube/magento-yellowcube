@@ -97,7 +97,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
                         }
 
                         // Add a message to the order history incl. link to shipping infos
-                        $message = $helper->__('Your order has been shipped. You can use the following url for shipping tracking: %s', $shippingUrl);
+                        $message = $helper->__('Your order has been shipped. You can use the following url for shipping tracking: <a href="%1$s">%1$s</a>', $shippingUrl);
                         $shipment
                             ->addComment($helper->__($message), true, true)
                             ->save();
