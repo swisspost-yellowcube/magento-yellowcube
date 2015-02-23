@@ -52,6 +52,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
                         'action' => Swisspost_YellowCube_Model_Synchronizer::SYNC_ORDER_UPDATE,
                         'order_id' => $data['order_id'],
                         'yc_reference' => $data['yc_reference'],
+                        'items' => $data['items'],
                         'try' => $data['try']++
                     )));
                 }
@@ -100,6 +101,8 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
                         $shipment
                             ->addComment($helper->__($message), true, true)
                             ->save();
+
+                        $shipment->sendEmail(true, $message);
                     }
                 }
             }
@@ -112,6 +115,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
                 $this->getQueue()->send(Zend_Json::encode(array(
                     'action' => Swisspost_YellowCube_Model_Synchronizer::SYNC_ORDER_UPDATE,
                     'order_id' => $data['order_id'],
+                    'items' => $data['items'],
                     'yc_reference' => $data['yc_reference'],
                     'try' => $data['try']++
                 )));
