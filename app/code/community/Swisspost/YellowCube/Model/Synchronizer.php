@@ -104,7 +104,7 @@ class Swisspost_YellowCube_Model_Synchronizer
         $positionItems = array();
         foreach ($order->getAllItems() as $item) {
             $positionItems[] = array(
-                'article_id' => $item->getId(),
+                'article_id' => $item->getProductId(),
                 'article_number' => $item->getSku(),
                 'article_title' => $item->getName(),
                 'article_qty' => $item->getQty(),

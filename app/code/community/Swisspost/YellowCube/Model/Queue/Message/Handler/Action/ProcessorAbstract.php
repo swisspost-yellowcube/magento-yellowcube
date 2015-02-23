@@ -67,13 +67,13 @@ abstract class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor
      * @param $array
      * @return bool
      */
-    function inMultiArray($elem, $array)
+    public function inMultiArray($elem, $array)
     {
         foreach ($array as $key => $value) {
             if ($value == $elem) {
                 return true;
             } elseif (is_array($value)) {
-                if (in_multiarray($elem, $value))
+                if ($this->inMultiArray($elem, $value))
                     return true;
             }
         }
