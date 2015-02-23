@@ -16,6 +16,10 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
     extends Swisspost_YellowCube_Model_Queue_Message_Handler_Action_ProcessorAbstract
     implements Swisspost_YellowCube_Model_Queue_Message_Handler_Action_ProcessorInterface
 {
+
+    // 1440 = 24 hours * 5 days * (60/5 times per hour - cron job run each 5 minutes)
+    const MAXTRIES = 1440;
+
     /**
      * @param array $data
      * @return $this
@@ -42,7 +46,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
                     $data['try'] = 0;
                 }
 
-                if (isset($data['try']) && $data['try'] < 5) {
+                if (isset($data['try']) && $data['try'] < self::MAXTRIES) {
                     // Add again in the queue to have an up to date status
                     $this->getQueue()->send(Zend_Json::encode(array(
                         'action' => Swisspost_YellowCube_Model_Synchronizer::SYNC_ORDER_UPDATE,
@@ -103,7 +107,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
             Mage::logException($e);
             // Let's keep going further processes
 
-            if (isset($data['try']) && $data['try'] < 5) {
+            if (isset($data['try']) && $data['try'] < self::MAXTRIES) {
                 // Add again in the queue to have an up to date status
                 $this->getQueue()->send(Zend_Json::encode(array(
                     'action' => Swisspost_YellowCube_Model_Synchronizer::SYNC_ORDER_UPDATE,
