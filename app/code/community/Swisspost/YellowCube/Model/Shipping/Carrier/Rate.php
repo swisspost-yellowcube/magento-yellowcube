@@ -71,7 +71,7 @@ class Swisspost_YellowCube_Model_Shipping_Carrier_Rate extends Mage_Shipping_Mod
      */
     public function requestToShipment(Mage_Shipping_Model_Shipment_Request $request)
     {
-        // No error is returned as it is an asynchrone process with yellowcube
+        // No error is returned as it is an asynchron process with yellowcube
         Mage::getSingleton('swisspost_yellowcube/synchronizer')->ship($request);
 
         return new Varien_Object();

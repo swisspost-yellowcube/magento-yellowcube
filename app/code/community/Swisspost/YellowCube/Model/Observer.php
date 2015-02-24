@@ -176,24 +176,20 @@ class Swisspost_YellowCube_Model_Observer
          */
 
         if ((bool)$product->getData('yc_sync_with_yellowcube') && $this->hasDataChangedFor($product, array('yc_sync_with_yellowcube'))) {
-            Mage::log('Insert product ' . $product->getId());
             $this->getSynchronizer()->insert($product);
             return $this;
         }
 
         if (!(bool)$product->getData('yc_sync_with_yellowcube') && $this->hasDataChangedFor($product, array('yc_sync_with_yellowcube'))) {
-            Mage::log('Deactivate product ' . $product->getId());
             $this->getSynchronizer()->deactivate($product);
             return $this;
         }
 
         if (!(bool)$product->getData('yc_sync_with_yellowcube')) {
-            Mage::log('Product ignored ' . $product->getId());
             return $this;
         }
 
         if ($this->hasDataChangedFor($product, array('name', 'weight', 'yc_dimension_length', 'yc_dimension_width', 'yc_dimension_height', 'yc_dimension_uom'))) {
-            Mage::log('Updated product ' . $product->getId());
             $this->getSynchronizer()->update($product);
             return $this;
         }
