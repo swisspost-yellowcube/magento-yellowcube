@@ -53,6 +53,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
                     $this->getQueue()->send(Zend_Json::encode(array(
                         'action' => Swisspost_YellowCube_Model_Synchronizer::SYNC_ORDER_UPDATE,
                         'order_id' => $data['order_id'],
+                        'shipment_increment_id' => $data['shipment_increment_id'],
                         'yc_reference' => $data['yc_reference'],
                         'items' => $data['items'],
                         'try' => $data['try']++
@@ -109,7 +110,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
 
                         $shipment->sendEmail(true, $message);
                     } else {
-                        Mage::log($helper->__('Goods issue list is emtpy.'), Zend_Log::DEBUG, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE, true);
+                        Mage::log($helper->__('Goods issue list is empty.'), Zend_Log::DEBUG, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE, true);
                     }
                 }
             }
@@ -123,6 +124,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
                     'action' => Swisspost_YellowCube_Model_Synchronizer::SYNC_ORDER_UPDATE,
                     'order_id' => $data['order_id'],
                     'items' => $data['items'],
+                    'shipment_increment_id' => $data['shipment_increment_id'],
                     'yc_reference' => $data['yc_reference'],
                     'try' => $data['try']++
                 )));
