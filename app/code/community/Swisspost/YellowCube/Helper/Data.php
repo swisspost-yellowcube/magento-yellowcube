@@ -174,4 +174,20 @@ class Swisspost_YellowCube_Helper_Data extends Mage_Core_Helper_Abstract
 
     }
 
+    /**
+     * @param string $shippingCode
+     * @return string
+     */
+    public function getAdditionalShipping($shippingCode)
+    {
+        foreach (Mage::getConfig()->getNode('global/carriers/yellowcube/methods')->asArray() as $method) {
+            if ($method['code'] == $shippingCode) {
+                if (isset($method['additional'])) {
+                    return $method['additional'];
+                }
+                break;
+            }
+        }
+        return '';
+    }
 }
