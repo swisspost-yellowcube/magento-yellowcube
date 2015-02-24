@@ -31,7 +31,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Ne
         $customer = Mage::getModel('customer/customer')
             ->setWebsiteId(Mage::app()->getStore($data['store_id'])->getWebsiteId())
             ->loadByEmail($data['partner_email']);
-        
+
         if ($customer->getId()) {
             $customerId = ' (' . $customer->getId() . ')';
         }
@@ -116,6 +116,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Ne
                 $this->getQueue()->send(Zend_Json::encode(array(
                     'action' => Swisspost_YellowCube_Model_Synchronizer::SYNC_ORDER_UPDATE,
                     'order_id' => $data['order_id'],
+                    'shipment_increment_id' => $shipment->getIncrementId(),
                     'yc_reference' => $response->getReference()
                 )));
             }

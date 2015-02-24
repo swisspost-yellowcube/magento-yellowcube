@@ -21,6 +21,8 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
     const MAXTRIES = 1440;
 
     /**
+     * Process YC WAR
+     *
      * @param array $data
      * @return $this
      */
@@ -34,7 +36,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
 
         try {
             if (!is_object($response) || !$response->isSuccess()) {
-                $message = $helper->__('Order #%s with YellowCube Transaction ID could not be transmitted to YellowCube: "%s".', $data['order_id'], $data['yc_reference'], $response->getStatusText());
+                $message = $helper->__('Order #%s Status with YellowCube Transaction ID could not get from YellowCube: "%s".', $data['order_id'], $data['yc_reference'], $response->getStatusText());
                 $shipment
                     ->addComment($message, false, false)
                     ->save();
@@ -64,7 +66,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
                 // find orders that have been processed
                 if ($response->isSuccess() && !$response->isPending() && !$response->isError()) {
 
-                    $goodsIssueList = $this->getYellowCubeService()->getYCCustomerOrderReply($data['order_id']);
+                    $goodsIssueList = $this->getYellowCubeService()->getYCCustomerOrderReply($data['shipment_increment_id']); // we replaced order id by shipment increment id
                     $shippingUrl = '';
 
                     foreach ($goodsIssueList as $goodsIssue) {
@@ -80,10 +82,13 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
                     }
 
                     if (Mage::helper('swisspost_yellowcube')->getDebug()) {
-                        Mage::log(print_r($goodsIssueList, true), Zend_Log::DEBUG, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE);
+                        Mage::log(print_r($goodsIssueList, true), Zend_Log::DEBUG, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE, true);
                     }
 
                     if (!empty($goodsIssueList)) {
+
+                        Mage::log($helper->__('Goods issue list has been found.'), Zend_Log::DEBUG, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE, true);
+
                         /**
                          * Define yc_shipped to 1 to be used later in BAR process that the shipping has been done
                          */
@@ -103,6 +108,8 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
                             ->save();
 
                         $shipment->sendEmail(true, $message);
+                    } else {
+                        Mage::log($helper->__('Goods issue list is emtpy.'), Zend_Log::DEBUG, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE, true);
                     }
                 }
             }
