@@ -39,5 +39,6 @@
         "pre-package-uninstall": [
             "YellowCube\\Composer\\Magento::cleanPackageAction"
         ]
-    }
+    },
+    "minimum-stability": "dev"
 }
