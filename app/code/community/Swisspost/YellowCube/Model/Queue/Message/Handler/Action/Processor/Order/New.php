@@ -14,6 +14,7 @@ use \YellowCube\WAB\Order;
 use \YellowCube\WAB\OrderHeader;
 use \YellowCube\WAB\Position;
 use \YellowCube\WAB\AdditionalService\BasicShippingServices;
+use \YellowCube\WAB\AdditionalService\AdditionalShippingServices;
 
 /**
  * Class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order
@@ -24,6 +25,14 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Ne
 {
     public function process(array $data)
     {
+        $shipment = Mage::getModel('sales/order_shipment')->load($data['order_id'], 'order_id');
+
+        $customerId = null;
+        $customer = Mage::getModel('customer/customer')->loadByEmail($data['partner_email']);
+        if ($customer->getId()) {
+            $customerId = ' (' . $customer->getId() . ')';
+        }
+
         $helper = Mage::helper('swisspost_yellowcube');
         $helperTools = Mage::helper('swisspost_yellowcube/tools');
 
@@ -31,7 +40,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Ne
         $partner
             ->setPartnerType($data['partner_type'])
             ->setPartnerNo($this->cutString($data['partner_number']), 10)
-            ->setPartnerReference($this->cutString('Liip AG - Magento'), 50)// @todo do we have to keep Liip AG here?
+            ->setPartnerReference($this->cutString($data['partner_email'] . $customerId), 50)
             ->setName1($this->cutString($data['partner_name']))
             ->setStreet($this->cutString($data['partner_street']))
             ->setCountryCode($data['partner_country_code'])
@@ -43,9 +52,11 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Ne
 
         $ycOrder = new Order();
         $ycOrder
-            ->setOrderHeader(new OrderHeader($this->cutString($data['deposit_number'], 10), $this->cutString($data['order_id']), $data['order_date']))
+            // We use shipment increment id instead of order id for the shop owner User Experience even if the parameter should be an OrderID
+            ->setOrderHeader(new OrderHeader($this->cutString($data['deposit_number'], 10), $this->cutString($shipment->getIncrementId()), $data['order_date']))
             ->setPartnerAddress($partner)
             ->addValueAddedService(new BasicShippingServices($this->cutString($data['service_basic_shipping']), 40))
+            ->addValueAddedService(new AdditionalShippingServices($this->cutString($data['service_additional_shipping']), 40))
             ->setOrderDocumentsFlag(false);
 
         foreach ($data['items'] as $key => $item) {
@@ -62,8 +73,6 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Ne
         }
 
         $response = $this->getYellowCubeService()->createYCCustomerOrder($ycOrder);
-        $shipment = Mage::getModel('sales/order_shipment')->load($data['order_id'], 'order_id');
-
         try {
             if (!is_object($response) || !$response->isSuccess()) {
                 $message = $helper->__('Order #%s could not be transmitted to YellowCube: "%s".', $data['order_id'], $response->getStatusText());
