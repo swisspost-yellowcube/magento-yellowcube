@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2eb914d973136948f7c561009abe7a70",
+    "hash": "afc52446b72a0ea5362fc3e3f6a63451",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -60,13 +60,13 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/course-hero/wse-php.git",
-                "reference": "9cc7751f22aa4b40409f78e87b9d13ea8a60bd87"
+                "url": "https://github.com/liip-forks/wse-php.git",
+                "reference": "c1457c8560b08803c1646c6d6445b53a7e089252"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/course-hero/wse-php/zipball/9cc7751f22aa4b40409f78e87b9d13ea8a60bd87",
-                "reference": "9cc7751f22aa4b40409f78e87b9d13ea8a60bd87",
+                "url": "https://api.github.com/repos/liip-forks/wse-php/zipball/c1457c8560b08803c1646c6d6445b53a7e089252",
+                "reference": "c1457c8560b08803c1646c6d6445b53a7e089252",
                 "shasum": ""
             },
             "require": {
@@ -79,19 +79,18 @@
                     "Wse": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD"
             ],
             "authors": [
                 {
-                    "name": "Chris Verges",
-                    "email": "cverges@coursehero.com",
+                    "name": "Rob Richards",
+                    "email": "rrichards@ctindustries.net",
                     "role": "Developer"
                 },
                 {
-                    "name": "Rob Richards",
-                    "email": "rrichards@ctindustries.net",
+                    "name": "Chris Verges",
+                    "email": "cverges@coursehero.com",
                     "role": "Developer"
                 }
             ],
@@ -101,7 +100,10 @@
                 "soap",
                 "wse"
             ],
-            "time": "2015-01-14 14:35:37"
+            "support": {
+                "source": "https://github.com/liip-forks/wse-php/tree/master"
+            },
+            "time": "2015-02-24 17:14:43"
         },
         {
             "name": "eloquent/composer-config-reader",

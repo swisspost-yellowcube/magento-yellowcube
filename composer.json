@@ -19,7 +19,12 @@
         {
         	"type": "vcs",
         	"url": "https://github.com/liip/yellowcube-php.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/liip-forks/wse-php.git"
         }
+
     ],
     "extra" : {
         "magento-root-dir" : "./",
