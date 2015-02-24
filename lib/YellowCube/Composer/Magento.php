@@ -40,11 +40,16 @@ class Magento
                     self::_recursiveRmDir($magentoPath . 'lib/YellowCube');
                 }
                 self::_recurseCopy(dirname(__DIR__), $magentoPath . 'lib/YellowCube');
-                
-                if (is_dir($magentoPath . 'lib/Beberlei')) {
-                    self::_recursiveRmDir($magentoPath . 'lib/Beberlei');
+
+                if (is_dir($magentoPath . 'lib/Assert')) {
+                    self::_recursiveRmDir($magentoPath . 'lib/Assert');
                 }
                 self::_recurseCopy(dirname(__DIR__) . '/../../../../beberlei/assert/lib/Assert', $magentoPath . 'lib/Assert');
+
+                if (is_dir($magentoPath . 'lib/Wse')) {
+                    self::_recursiveRmDir($magentoPath . 'lib/Wse');
+                }
+                self::_recurseCopy(dirname(__DIR__) . '/../../../../course-hero/wse-php/src/Wse', $magentoPath . 'lib/Wse');
             }
         }
     }
@@ -63,8 +68,11 @@ class Magento
             if (is_dir($magentoPath . 'lib/YellowCube')) {
                 self::_recursiveRmDir($magentoPath . 'lib/YellowCube');
             }
-            if (is_dir($magentoPath . 'lib/Beberlei')) {
-                self::_recursiveRmDir($magentoPath . 'lib/Beberlei');
+            if (is_dir($magentoPath . 'lib/Assert')) {
+                self::_recursiveRmDir($magentoPath . 'lib/Assert');
+            }
+            if (is_dir($magentoPath . 'lib/Wse')) {
+                self::_recursiveRmDir($magentoPath . 'lib/Wse');
             }
         }
     }

@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ed1c5440addbbb24be68fd0b5b788f05",
+    "hash": "f99e5a3d725bd3a2d1790d28042f1860",
     "packages": [
         {
             "name": "beberlei/assert",
-            "version": "v2.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/beberlei/assert.git",
-                "reference": "160eba4d1fbe692e42b3cf8a20b92ab23e3a8759"
+                "reference": "71fc0247858b67bad5622e4bee78c4856f073a03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beberlei/assert/zipball/160eba4d1fbe692e42b3cf8a20b92ab23e3a8759",
-                "reference": "160eba4d1fbe692e42b3cf8a20b92ab23e3a8759",
+                "url": "https://api.github.com/repos/beberlei/assert/zipball/71fc0247858b67bad5622e4bee78c4856f073a03",
+                "reference": "71fc0247858b67bad5622e4bee78c4856f073a03",
                 "shasum": ""
             },
             "require": {
@@ -53,7 +53,57 @@
                 "assertion",
                 "validation"
             ],
-            "time": "2014-12-18 19:12:40"
+            "time": "2015-02-23 11:12:05"
+        },
+        {
+            "name": "course-hero/wse-php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/liip-forks/wse-php.git",
+                "reference": "c1457c8560b08803c1646c6d6445b53a7e089252"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/liip-forks/wse-php/zipball/c1457c8560b08803c1646c6d6445b53a7e089252",
+                "reference": "c1457c8560b08803c1646c6d6445b53a7e089252",
+                "shasum": ""
+            },
+            "require": {
+                "ext-soap": "*",
+                "php": ">= 5.2.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Wse": "src/"
+                }
+            },
+            "license": [
+                "BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Rob Richards",
+                    "email": "rrichards@ctindustries.net",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Chris Verges",
+                    "email": "cverges@coursehero.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Libraries for adding WS-* support to ext/soap in PHP",
+            "homepage": "http://github.com/course-hero/wse-php",
+            "keywords": [
+                "soap",
+                "wse"
+            ],
+            "support": {
+                "source": "https://github.com/liip-forks/wse-php/tree/master"
+            },
+            "time": "2015-02-24 17:14:43"
         },
         {
             "name": "eloquent/composer-config-reader",
@@ -306,7 +356,7 @@
         },
         {
             "name": "justinrainbow/json-schema",
-            "version": "1.3.7",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/justinrainbow/json-schema.git",
@@ -376,16 +426,17 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:liip/yellowcube-php.git",
-                "reference": "4265fa3800c5c174e15c53613f690e0b959331bb"
+                "reference": "6505f804c0fb1dbd37a74477080084aa21db8c25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/liip/yellowcube-php/zipball/4265fa3800c5c174e15c53613f690e0b959331bb",
-                "reference": "4265fa3800c5c174e15c53613f690e0b959331bb",
+                "url": "https://api.github.com/repos/liip/yellowcube-php/zipball/6505f804c0fb1dbd37a74477080084aa21db8c25",
+                "reference": "6505f804c0fb1dbd37a74477080084aa21db8c25",
                 "shasum": ""
             },
             "require": {
                 "beberlei/assert": "~2.0@dev",
+                "course-hero/wse-php": "dev-master",
                 "ext-soap": "*",
                 "php": ">=5.3"
             },
@@ -410,10 +461,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/liip/yellowcube-php/tree/master",
+                "source": "https://github.com/liip/yellowcube-php/tree/composer-patch",
                 "issues": "https://github.com/liip/yellowcube-php/issues"
             },
-            "time": "2015-02-05 14:59:23"
+            "time": "2015-02-24 20:58:01"
         },
         {
             "name": "magento-hackathon/magento-composer-installer",
@@ -510,7 +561,7 @@
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
         "liip/yellowcube-php": 20
     },
