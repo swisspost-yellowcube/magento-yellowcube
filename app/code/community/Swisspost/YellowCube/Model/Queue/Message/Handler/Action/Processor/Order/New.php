@@ -28,7 +28,10 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Ne
         $shipment = Mage::getModel('sales/order_shipment')->load($data['order_id'], 'order_id');
 
         $customerId = null;
-        $customer = Mage::getModel('customer/customer')->loadByEmail($data['partner_email']);
+        $customer = Mage::getModel('customer/customer')
+            ->setWebsiteId(Mage::app()->getStore($data['store_id'])->getWebsiteId())
+            ->loadByEmail($data['partner_email']);
+        
         if ($customer->getId()) {
             $customerId = ' (' . $customer->getId() . ')';
         }
