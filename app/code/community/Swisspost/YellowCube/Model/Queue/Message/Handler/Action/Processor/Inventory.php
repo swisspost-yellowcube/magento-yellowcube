@@ -10,7 +10,6 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Inventor
      */
     public function process(array $data)
     {
-
         $processor = new Swisspost_YellowCube_Model_Queue_Processor();
         $processor->process();
 
@@ -18,11 +17,9 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Inventor
 
         Mage::log($this->getHelper()->__('YellowCube reports %d products with a stock level', count($stockItems)), Zend_Log::INFO, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE);
 
-        foreach ($stockItems as $product) {
-
-            // @todo take in account product not considered as shipped in calculation
-
-            $this->update($product->getArticleNo(), array('qty' => $product->getQuantityUOM()->get()));
+        /* @var $article \YellowCube\BAR\Article */
+        foreach ($stockItems as $article) {
+           $this->update($article->getArticleNo(), array('qty' => $article->getQuantityUOM()->get()));
         }
 
         return $this;
@@ -40,13 +37,35 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Inventor
         $idBySku = $product->getIdBySku($productId);
         $productId = $idBySku ? $idBySku : $productId;
 
-        $product->setStoreId($this->_getStoreId())
+        $product
+            ->setStoreId($this->_getStoreId())
             ->load($productId);
 
         if (!$product->getId()) {
             Mage::log($this->getHelper()->__('Product %s inventory cannot be synchronized from YellowCube into Magento because it does not exist.', $productId));
             return $this;
         }
+
+        /**
+         * YellowCube stock - qty of products not yet shipped = new stock
+         */
+        $shipmentItemsCollection = Mage::getResourceModel('sales/order_shipment_item_collection');
+        $shipmentItemsCollection
+            ->addFieldToFilter('product_id', $product->getId())
+            ->addFieldToSelect('additional_data')
+            ->addFieldToSelect('qty');
+
+        $qtyToDecrease = 0;
+        foreach ($shipmentItemsCollection->getItems() as $shipment) {
+            $additionalData = Zend_Json::decode($shipment->getAdditionalData());
+            if (isset($additionalData['yc_shipped']) && $additionalData['yc_shipped'] === 0) {
+                $qtyToDecrease += $shipment->getQty();
+            } else {
+                continue;
+            }
+        }
+
+        $data['qty'] -= $qtyToDecrease;
 
         /** @var $stockItem Mage_CatalogInventory_Model_Stock_Item */
         $stockItem = $product->getStockItem();
