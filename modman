@@ -3,7 +3,7 @@ src/app/code/community/Swisspost/Yellowcube app/code/community/Swisspost/Yellowc
 src/app/design/adminhtml/default/default/layout/yellowcube.xml app/design/adminhtml/default/default/layout/yellowcube.xml
 src/app/design/adminhtml/default/default/template/yellowcube app/design/adminhtml/default/default/template/yellowcube
 
-src/app/locale/en_US/Swisspost_Yellowcube.csv app/locale/en_US/Swisspost_Yellowcube.csv
+#src/app/locale/en_US/Swisspost_Yellowcube.csv app/locale/en_US/Swisspost_Yellowcube.csv
 src/app/locale/en_US/template/email/swisspost app/locale/en_US/template/email/swisspost
 
 # Import the Yellowcube PHP lib via modman
