@@ -1,18 +1,28 @@
 {
-    "name":"liip/yellowcube-magento",
+    "name":"swisspost-yellowcube/yellowcube-magento",
     "type":"magento-module",
     "license":"OSL-3.0",
-    "homepage":"http://www.liip.ch",
-    "description":"Magento extension for YellowCube from Post AG - Switzerland.",
+    "homepage":"http://www.yellowcube.ch",
+    "description":"Magento extension for YellowCube from SwissPost AG - Switzerland.",
     "require":{
         "php": ">=5.3.2",
         "magento-hackathon/magento-composer-installer":"2.*",
-        "liip/yellowcube-php": "1.*"
+        "swisspost-yellowcube/yellowcube-php": "dev-master",
+        "course-hero/wse-php": "dev-master"
     },
     "repositories":[
         {
             "type": "vcs",
-            "url": "git@github.com:liip/yellowcube-magento.git"
+            "url": "git@github.com:swisspost-yellowcube/yellowcube-magento.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:swisspost-yellowcube/yellowcube-php.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/liip-forks/wse-php.git"
         }
-    ]
+    ],
+    "minimum-stability": "dev"
 }
