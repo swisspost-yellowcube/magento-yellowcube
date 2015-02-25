@@ -47,6 +47,8 @@ $disabledFuncs = explode(',', ini_get('disable_functions'));
 $isShellDisabled = is_array($disabledFuncs) ? in_array('shell_exec', $disabledFuncs) : true;
 $isShellDisabled = (stripos(PHP_OS, 'win') === false) ? $isShellDisabled : true;
 
+$isShellDisabled = true;
+
 try {
     if (stripos(PHP_OS, 'win') === false) {
         $options = getopt('m::');
