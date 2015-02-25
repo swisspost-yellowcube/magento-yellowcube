@@ -1,49 +1,18 @@
 {
-    "name": "liip/yellowcube",
-    "authors": [
-        {
-            "name": "Sylvain Raye",
-            "email": "sly@diglin.com"
-        }
-    ],
+    "name":"liip/yellowcube-magento",
+    "type":"magento-module",
+    "license":"OSL-3.0",
+    "homepage":"http://www.liip.ch",
+    "description":"Magento extension for YellowCube from Post AG - Switzerland.",
     "require":{
         "php": ">=5.3.2",
-        "magento-hackathon/magento-composer-installer":"2.*",        
-    	"liip/yellowcube-php": "dev-master"
+        "magento-hackathon/magento-composer-installer":"2.*",
+        "liip/yellowcube-php": "1.*"
     },
-    "repositories" : [
-		{
-            "type" : "composer",
-            "url" : "http://packages.firegento.com"
-        },
-        {
-        	"type": "vcs",
-        	"url": "https://github.com/liip/yellowcube-php.git"
-        },
+    "repositories":[
         {
             "type": "vcs",
-            "url": "https://github.com/liip-forks/wse-php.git"
+            "url": "git@github.com:liip/yellowcube-magento.git"
         }
-
-    ],
-    "extra" : {
-        "magento-root-dir" : "./",
-        "magento-deploystrategy": "link",
-        "magento-force": true
-    },
-    "config": {
-    	"preferred-install": "dist"
-    },
-    "scripts": {
-        "post-package-install": [
-            "YellowCube\\Composer\\Magento::postPackageAction"
-        ],
-        "post-package-update": [
-            "YellowCube\\Composer\\Magento::postPackageAction"
-        ],
-        "pre-package-uninstall": [
-            "YellowCube\\Composer\\Magento::cleanPackageAction"
-        ]
-    },
-    "minimum-stability": "dev"
+    ]
 }
