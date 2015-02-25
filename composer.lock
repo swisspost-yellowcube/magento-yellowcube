@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f99e5a3d725bd3a2d1790d28042f1860",
+    "hash": "afc52446b72a0ea5362fc3e3f6a63451",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -426,12 +426,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:liip/yellowcube-php.git",
-                "reference": "6505f804c0fb1dbd37a74477080084aa21db8c25"
+                "reference": "d8ee9dbef4efd97faccbbb830d389b12149873bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/liip/yellowcube-php/zipball/6505f804c0fb1dbd37a74477080084aa21db8c25",
-                "reference": "6505f804c0fb1dbd37a74477080084aa21db8c25",
+                "url": "https://api.github.com/repos/liip/yellowcube-php/zipball/d8ee9dbef4efd97faccbbb830d389b12149873bf",
+                "reference": "d8ee9dbef4efd97faccbbb830d389b12149873bf",
                 "shasum": ""
             },
             "require": {
@@ -461,10 +461,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/liip/yellowcube-php/tree/composer-patch",
+                "source": "https://github.com/liip/yellowcube-php/tree/master",
                 "issues": "https://github.com/liip/yellowcube-php/issues"
             },
-            "time": "2015-02-24 20:58:01"
+            "time": "2015-02-24 17:46:48"
         },
         {
             "name": "magento-hackathon/magento-composer-installer",

@@ -8,8 +8,8 @@
     ],
     "require":{
         "php": ">=5.3.2",
-        "magento-hackathon/magento-composer-installer":"2.*",
-        "liip/yellowcube-php": "dev-master"
+        "magento-hackathon/magento-composer-installer":"2.*",        
+    	"liip/yellowcube-php": "dev-master"
     },
     "repositories" : [
 		{
@@ -17,13 +17,14 @@
             "url" : "http://packages.firegento.com"
         },
         {
-            "type": "vcs",
-            "url": "https://github.com/liip-forks/wse-php.git"
+        	"type": "vcs",
+        	"url": "https://github.com/liip/yellowcube-php.git"
         },
         {
             "type": "vcs",
-            "url": "https://github.com/liip/yellowcube-php.git"
+            "url": "https://github.com/liip-forks/wse-php.git"
         }
+
     ],
     "extra" : {
         "magento-root-dir" : "./",
