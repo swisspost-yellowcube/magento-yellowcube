@@ -11,8 +11,8 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Inventor
     public function process(array $data)
     {
         // Start all other processes before to sync the inventory (sync WAB first)
-        $processor = new Swisspost_YellowCube_Model_Queue_Processor();
-        $processor->process();
+//        $processor = new Swisspost_YellowCube_Model_Queue_Processor();
+//        $processor->process();
 
         $stockItems = $this->getYellowCubeService()->getInventory();
 
