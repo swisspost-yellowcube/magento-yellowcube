@@ -10,12 +10,13 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Inventor
      */
     public function process(array $data)
     {
+        // Start all other processes before to sync the inventory (sync WAB first)
         $processor = new Swisspost_YellowCube_Model_Queue_Processor();
         $processor->process();
 
         $stockItems = $this->getYellowCubeService()->getInventory();
 
-        Mage::log($this->getHelper()->__('YellowCube reports %d products with a stock level', count($stockItems)), Zend_Log::INFO, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE);
+        Mage::log($this->getHelper()->__('YellowCube reports %d products with a stock level', count($stockItems)), Zend_Log::INFO, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE, true);
 
         /* @var $article \YellowCube\BAR\Article */
         foreach ($stockItems as $article) {
@@ -42,7 +43,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Inventor
             ->load($productId);
 
         if (!$product->getId()) {
-            Mage::log($this->getHelper()->__('Product %s inventory cannot be synchronized from YellowCube into Magento because it does not exist.', $productId));
+            Mage::log($this->getHelper()->__('Product %s inventory cannot be synchronized from YellowCube into Magento because it does not exist.', $productId), Zend_Log::INFO, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE, true);
             return $this;
         }
 
