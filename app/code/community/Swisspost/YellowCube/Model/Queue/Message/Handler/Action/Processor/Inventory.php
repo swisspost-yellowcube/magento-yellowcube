@@ -75,6 +75,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Inventor
         $stockItem->setData($stockData);
 
         try {
+            Mage::log($this->getHelper()->__('Product %s with the qty of %s will be saved..', $productId, $stockItem->getQty()), Zend_Log::INFO, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE, true);
             $stockItem->save();
         } catch (Exception $e) {
             Mage::logException($e);
