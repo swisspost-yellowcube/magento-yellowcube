@@ -127,20 +127,10 @@
                         <label>PostPac Economy</label>
                         <code>ECO</code>
                     </eco>
-                    <eco_si translate="label" module="swisspost_yellowcube">
-                        <label>PostPac Economy with signature</label>
-                        <code>ECO</code>
-                        <additional>SI</additional>
-                    </eco_si>
                     <pri translate="label" module="swisspost_yellowcube">
                         <label>PostPac Priority</label>
                         <code>PRI</code>
                     </pri>
-                    <pri_si translate="label" module="swisspost_yellowcube">
-                        <label>PostPac Priority with signature</label>
-                        <code>PRI</code>
-                        <additional>SI</additional>
-                    </pri_si>
                     <sp_eco translate="label" module="swisspost_yellowcube">
                         <label>Bulky goods PostPac Economy</label>
                         <code>SP ECO</code>

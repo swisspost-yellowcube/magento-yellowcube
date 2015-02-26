@@ -5,16 +5,17 @@
  */
 class Swisspost_YellowCube_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const CONFIG_SENDER_ID          = 'carriers/yellowcube/sender_id';
-    const CONFIG_ENDPOINT           = 'carriers/yellowcube/soap_url';
-    const CONFIG_PARTNER_NUMBER     = 'carriers/yellowcube/partner_number';
-    const CONFIG_DEPOSITOR_NUMBER   = 'carriers/yellowcube/depositor_number';
-    const CONFIG_PLANT_ID           = 'carriers/yellowcube/plant_id';
-    const CONFIG_CERT_PATH          = 'carriers/yellowcube/certificate_path';
-    const CONFIG_CERT_PASSWORD      = 'carriers/yellowcube/certificate_password';
-    const CONFIG_TARA_FACTOR        = 'carriers/yellowcube/tara_factor';
-    const CONFIG_OPERATION_MODE     = 'carriers/yellowcube/operation_mode';
-    const CONFIG_DEBUG              = 'carriers/yellowcube/debug';
+    const CONFIG_SENDER_ID           = 'carriers/yellowcube/sender_id';
+    const CONFIG_ENDPOINT            = 'carriers/yellowcube/soap_url';
+    const CONFIG_PARTNER_NUMBER      = 'carriers/yellowcube/partner_number';
+    const CONFIG_DEPOSITOR_NUMBER    = 'carriers/yellowcube/depositor_number';
+    const CONFIG_PLANT_ID            = 'carriers/yellowcube/plant_id';
+    const CONFIG_CERT_PATH           = 'carriers/yellowcube/certificate_path';
+    const CONFIG_CERT_PASSWORD       = 'carriers/yellowcube/certificate_password';
+    const CONFIG_TARA_FACTOR         = 'carriers/yellowcube/tara_factor';
+    const CONFIG_OPERATION_MODE      = 'carriers/yellowcube/operation_mode';
+    const CONFIG_DEBUG               = 'carriers/yellowcube/debug';
+    const CONFIG_SHIPPING_ADDITIONAL = 'carriers/yellowcube/additional_methods';
 
     const YC_LOG_FILE               = 'yellowcube.log';
 
@@ -171,23 +172,13 @@ class Swisspost_YellowCube_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         return true;
-
     }
 
     /**
-     * @param string $shippingCode
      * @return string
      */
-    public function getAdditionalShipping($shippingCode)
+    public function getAdditionalShipping($storeId = Mage_Core_Model_Store::ADMIN_CODE)
     {
-        foreach (Mage::getConfig()->getNode('global/carriers/yellowcube/methods')->asArray() as $method) {
-            if ($method['code'] == $shippingCode) {
-                if (isset($method['additional'])) {
-                    return $method['additional'];
-                }
-                break;
-            }
-        }
-        return '';
+        return str_replace(',', ';', $this->getDefaultConfig(self::CONFIG_SHIPPING_ADDITIONAL), $storeId);
     }
 }
