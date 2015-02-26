@@ -11,11 +11,11 @@
             new Ajax.Request('<?php echo $this->getAjaxUrl() ?>', {
                 parameters: {},
                 onSuccess: function(response) {
-                    result = '<?php echo $this->__('Synchronization task hasnt been sent to queue! Try again?') ?>';
+                    result = '<?php echo $this->__('Synchronization task has not been sent to the queue! Try again?') ?>';
                     try {
                         response = response.responseText;
                         if (response == 1) {
-                            result = '<?php echo $this->__('Synchronization task has been sent to queue!') ?>';
+                            result = '<?php echo $this->__('Synchronization task has been sent to the queue!') ?>';
                             elem.removeClassName('fail').addClassName('success')
                         } else {
                             elem.removeClassName('success').addClassName('fail')
