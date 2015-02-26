@@ -39,7 +39,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Bar
             ->load($productId);
 
         if (!$product->getId()) {
-            Mage::log($this->getHelper()->__('Product %s inventory cannot be synchronized from YellowCube into Magento because it does not exist.', $productId), Zend_Log::INFO, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE, true);
+            Mage::log($this->getHelper()->__('Product %s inventory cannot be synchronized from YellowCube into Magento because it does not exist.', $productId), Zend_Log::INFO, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE);
             return $this;
         }
 
@@ -70,7 +70,9 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Bar
         $stockItem->setData($stockData);
 
         try {
-            Mage::log($this->getHelper()->__('Product %s with the qty of %s will be saved..', $productId, $stockItem->getQty()), Zend_Log::INFO, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE, true);
+            if (Mage::helper('swisspost_yellowcube')->getDebug()) {
+                Mage::log($this->getHelper()->__('Product %s with the qty of %s will be saved..', $productId, $stockItem->getQty()), Zend_Log::INFO, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE, true);
+            }
             $stockItem->save();
         } catch (Exception $e) {
             Mage::logException($e);
