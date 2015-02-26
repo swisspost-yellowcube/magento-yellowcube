@@ -251,7 +251,18 @@ class Swisspost_YellowCube_Model_Observer
      */
     public function handleInventory()
     {
-        $this->getSynchronizer()->syncInventoryWithYC();
+        $this->getSynchronizer()->bar();
+        return $this;
+    }
+
+    /**
+     * Add a message to the queue to sync the YellowCube Inventory with Magento Products
+     *
+     * @return $this
+     */
+    public function handleWar()
+    {
+        $this->getSynchronizer()->war();
         return $this;
     }
 

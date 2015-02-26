@@ -7,7 +7,8 @@ class Swisspost_YellowCube_Model_Synchronizer
     const SYNC_ACTION_DEACTIVATE            = 'deactivate';
     const SYNC_ORDER_NEW                    = 'order_new';
     const SYNC_ORDER_UPDATE                 = 'order_update';
-    const SYNC_INVENTORY                    = 'inventory';
+    const SYNC_INVENTORY                    = 'bar';
+    const SYNC_WAR                          = 'war';
 
     /**
      * @var Zend_Queue
@@ -138,7 +139,7 @@ class Swisspost_YellowCube_Model_Synchronizer
 
             // ValueAddedServices - AdditionalService
             'service_basic_shipping'      => $request->getShippingMethod(),
-            'service_additional_shipping' => $helper->getAdditionalShipping($request->getShippingMethod()),
+            'service_additional_shipping' => $helper->getAdditionalShipping($request->getStoreId()),
 
             // Order Positions
             'items' => $positionItems
@@ -150,10 +151,21 @@ class Swisspost_YellowCube_Model_Synchronizer
     /**
      * @return $this
      */
-    public function syncInventoryWithYC()
+    public function bar()
     {
         $this->getQueue()->send(Zend_Json::encode(array(
             'action' => self::SYNC_INVENTORY
+        )));
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function war()
+    {
+        $this->getQueue()->send(Zend_Json::encode(array(
+            'action' => self::SYNC_WAR
         )));
         return $this;
     }

@@ -36,7 +36,9 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
 
         try {
             if (!is_object($response) || !$response->isSuccess()) {
-                $message = $helper->__('Order #%s Status with YellowCube Transaction ID could not get from YellowCube: "%s".', $data['order_id'], $data['yc_reference'], $response->getStatusText());
+                $message = $helper->__('Order #%s Status with YellowCube Transaction ID could not get from YellowCube: "%s".',
+                    $data['order_id'], $data['yc_reference'], $response->getStatusText());
+
                 $shipment
                     ->addComment($message, false, false)
                     ->save();
@@ -48,75 +50,31 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
                     $data['try'] = 0;
                 }
 
-                if (isset($data['try']) && $data['try'] < self::MAXTRIES) {
+                if ($data['try'] < self::MAXTRIES) {
                     // Add again in the queue to have an up to date status
                     $this->getQueue()->send(Zend_Json::encode(array(
-                        'action' => Swisspost_YellowCube_Model_Synchronizer::SYNC_ORDER_UPDATE,
-                        'order_id' => $data['order_id'],
+                        'action'                => Swisspost_YellowCube_Model_Synchronizer::SYNC_ORDER_UPDATE,
+                        'order_id'              => $data['order_id'],
                         'shipment_increment_id' => $data['shipment_increment_id'],
-                        'yc_reference' => $data['yc_reference'],
-                        'items' => $data['items'],
-                        'try' => $data['try']++
+                        'yc_reference'          => $data['yc_reference'],
+                        'items'                 => $data['items'],
+                        'try'                   => $data['try']++
                     )));
                 }
             } else {
+                if ($response->isSuccess() && !$response->isPending() && !$response->isError()) {
+                    $shipment
+                        ->addComment($helper->__('Order status for YellowCube and the order %s is successful', $data['order_id']), false, false)
+                        ->save();
+                }
+
                 if (Mage::helper('swisspost_yellowcube')->getDebug()) {
                     Mage::log(print_r($response, true), Zend_Log::DEBUG, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE);
                 }
-
-                // find orders that have been processed
-                if ($response->isSuccess() && !$response->isPending() && !$response->isError()) {
-
-                    $goodsIssueList = $this->getYellowCubeService()->getYCCustomerOrderReply($data['shipment_increment_id']); // we replaced order id by shipment increment id
-                    $shippingUrl = '';
-
-                    foreach ($goodsIssueList as $goodsIssue) {
-                        $header = $goodsIssue->getCustomerOrderHeader();
-                        $shipmentNo = $header->getPostalShipmentNo();
-
-                        // Multi packaging / shipping is not supported atm.
-                        if (!empty($shipmentNo)) {
-                            //shipping number contains a semicolon, post api supports multiple values
-                            $shippingUrl = 'http://www.post.ch/swisspost-tracking?formattedParcelCodes=' . $shipmentNo;
-                            break;
-                        }
-                    }
-
-                    if (Mage::helper('swisspost_yellowcube')->getDebug()) {
-                        Mage::log(print_r($goodsIssueList, true), Zend_Log::DEBUG, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE, true);
-                    }
-
-                    if (!empty($goodsIssueList)) {
-
-                        Mage::log($helper->__('Goods issue list has been found.'), Zend_Log::DEBUG, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE, true);
-
-                        /**
-                         * Define yc_shipped to 1 to be used later in BAR process that the shipping has been done
-                         */
-                        foreach ($shipment->getItemsCollection() as $item) {
-                            /* @var $item Mage_Sales_Model_Order_Shipment_Item */
-                            if ($this->inMultiArray($item->getProductId(), $data['items'])) {
-                                $item
-                                    ->setAdditionalData(Zend_Json::encode(array('yc_shipped' => 1)))
-                                    ->save();
-                            }
-                        }
-
-                        // Add a message to the order history incl. link to shipping infos
-                        $message = $helper->__('Your order has been shipped. You can use the following url for shipping tracking: <a href="%1$s" target="_blank">%1$s</a>', $shippingUrl);
-                        $shipment
-                            ->addComment($helper->__($message), true, true)
-                            ->save();
-
-                        $shipment->sendEmail(true, $message);
-                    } else {
-                        Mage::log($helper->__('Goods issue list is empty.'), Zend_Log::DEBUG, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE, true);
-                    }
-                }
             }
         } catch (Exception $e) {
-            Mage::logException($e);
             // Let's keep going further processes
+            Mage::logException($e);
 
             if (isset($data['try']) && $data['try'] < self::MAXTRIES) {
                 // Add again in the queue to have an up to date status

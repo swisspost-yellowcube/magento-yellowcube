@@ -55,7 +55,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Ne
 
         $ycOrder = new Order();
         $ycOrder
-            // We use shipment increment id instead of order id for the shop owner User Experience even if the parameter should be an OrderID
+            // We use shipment increment id instead of order id for the shop owner User Experience even if the expected parameter should be an OrderID
             ->setOrderHeader(new OrderHeader($this->cutString($data['deposit_number'], 10), $this->cutString($shipment->getIncrementId()), $data['order_date']))
             ->setPartnerAddress($partner)
             ->addValueAddedService(new BasicShippingServices($this->cutString($data['service_basic_shipping']), 40))
@@ -101,11 +101,9 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Ne
                 reset($data['items']);
                 foreach ($shipment->getItemsCollection() as $item) {
                     /* @var $item Mage_Sales_Model_Order_Shipment_Item */
-                    if ($this->inMultiArray($item->getProductId(), $data['items'])) {
-                        $item
-                            ->setAdditionalData(Zend_Json::encode(array('yc_shipped' => 0)))
-                            ->save();
-                    }
+                    $item
+                        ->setAdditionalData(Zend_Json::encode(array('yc_shipped' => 0)))
+                        ->save();
                 }
 
                 $shipment
@@ -121,8 +119,8 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Ne
                 )));
             }
         } catch (Exception $e) {
-            Mage::logException($e);
             // Let's keep going further processes
+            Mage::logException($e);
         }
 
         return $this;
