@@ -28,7 +28,6 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
      */
     public function process(array $data)
     {
-        $helper = Mage::helper('swisspost_yellowcube');
         $helperTools = Mage::helper('swisspost_yellowcube/tools');
 
         $shipment = Mage::getModel('sales/order_shipment')->load($data['order_id'], 'order_id');
@@ -36,7 +35,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
 
         try {
             if (!is_object($response) || !$response->isSuccess()) {
-                $message = $helper->__('Order #%s Status with YellowCube Transaction ID could not get from YellowCube: "%s".',
+                $message = $this->getHelper()->__('Order #%s Status with YellowCube Transaction ID could not get from YellowCube: "%s".',
                     $data['order_id'], $data['yc_reference'], $response->getStatusText());
 
                 $shipment
@@ -64,11 +63,11 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
             } else {
                 if ($response->isSuccess() && !$response->isPending() && !$response->isError()) {
                     $shipment
-                        ->addComment($helper->__('Order status for YellowCube and the order %s is successful', $data['order_id']), false, false)
+                        ->addComment($this->getHelper()->__('Order status for YellowCube and the order %s is successful', $data['order_id']), false, false)
                         ->save();
                 }
 
-                if (Mage::helper('swisspost_yellowcube')->getDebug()) {
+                if ($this->getHelper()->getDebug()) {
                     Mage::log(print_r($response, true), Zend_Log::DEBUG, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE);
                 }
             }

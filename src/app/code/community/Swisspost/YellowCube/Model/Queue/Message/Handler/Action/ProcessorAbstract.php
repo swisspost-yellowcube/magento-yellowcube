@@ -80,4 +80,12 @@ abstract class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor
 
         return false;
     }
+
+    /**
+     * @return Swisspost_YellowCube_Helper_Data
+     */
+    public function getHelper()
+    {
+        return Mage::helper('swisspost_yellowcube');
+    }
 }

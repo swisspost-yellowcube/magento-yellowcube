@@ -36,7 +36,6 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Ne
             $customerId = ' (' . $customer->getId() . ')';
         }
 
-        $helper = Mage::helper('swisspost_yellowcube');
         $helperTools = Mage::helper('swisspost_yellowcube/tools');
 
         $partner = new Partner();
@@ -78,7 +77,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Ne
         $response = $this->getYellowCubeService()->createYCCustomerOrder($ycOrder);
         try {
             if (!is_object($response) || !$response->isSuccess()) {
-                $message = $helper->__('Order #%s could not be transmitted to YellowCube: "%s".', $data['order_id'], $response->getStatusText());
+                $message = $this->getHelper()->__('Order #%s could not be transmitted to YellowCube: "%s".', $data['order_id'], $response->getStatusText());
 
                 $shipment
                     ->addComment($message, false, false)
@@ -90,7 +89,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Ne
                 // @todo allow the user to send again to yellow cube the request from backend
 
             } else {
-                if (Mage::helper('swisspost_yellowcube')->getDebug()) {
+                if ($this->getHelper()->getDebug()) {
                     Mage::log(print_r($ycOrder, true), Zend_Log::DEBUG, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE);
                     Mage::log(print_r($response, true), Zend_Log::DEBUG, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE);
                 }
@@ -107,7 +106,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Ne
                 }
 
                 $shipment
-                    ->addComment($helper->__('Order #%s was successfully transmitted to YellowCube. Received reference number %s and status message "%s".', $data['order_id'], $response->getReference(), $response->getStatusText()), false, false)
+                    ->addComment($this->getHelper()->__('Order #%s was successfully transmitted to YellowCube. Received reference number %s and status message "%s".', $data['order_id'], $response->getReference(), $response->getStatusText()), false, false)
                     ->save();
 
                 // WAR Message

@@ -20,7 +20,6 @@ class Swisspost_Yellowcube_Model_Queue_Message_Handler_Action_Processor_War
     {
         try {
             $goodsIssueList = $this->getYellowCubeService()->getYCCustomerOrderReply();
-            $helper = Mage::helper('swisspost_yellowcube');
 
             foreach ($goodsIssueList as $goodsIssue) {
                 $header = $goodsIssue->getCustomerOrderHeader();
@@ -50,24 +49,24 @@ class Swisspost_Yellowcube_Model_Queue_Message_Handler_Action_Processor_War
                         }
                     }
 
-                    Mage::log($helper->__('Items for shipment %s considered as shipped', $shipment->getIncrementId()), Zend_Log::DEBUG, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE, true);
+                    Mage::log($this->getHelper()->__('Items for shipment %s considered as shipped', $shipment->getIncrementId()), Zend_Log::DEBUG, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE, true);
 
                     // shipping number contains a semicolon, post api supports multiple values
                     $shippingUrl = 'http://www.post.ch/swisspost-tracking?formattedParcelCodes=' . $shipmentNo;
 
                     // Add a message to the order history incl. link to shipping infos
-                    $message = $helper->__('Your order has been shipped. You can use the following url for shipping tracking: <a href="%1$s" target="_blank">%1$s</a>', $shippingUrl);
+                    $message = $this->getHelper()->__('Your order has been shipped. You can use the following url for shipping tracking: <a href="%1$s" target="_blank">%1$s</a>', $shippingUrl);
                     $shipment
-                        ->addComment($helper->__($message), true, true)
+                        ->addComment($this->getHelper()->__($message), true, true)
                         ->save();
 
                     $shipment->sendEmail(true, $message);
 
-                    Mage::log($helper->__('Shipment %s comment added and email sent', $shipment->getIncrementId()), Zend_Log::DEBUG, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE, true);
+                    Mage::log($this->getHelper()->__('Shipment %s comment added and email sent', $shipment->getIncrementId()), Zend_Log::DEBUG, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE, true);
                 }
             }
 
-            if (Mage::helper('swisspost_yellowcube')->getDebug()) {
+            if ($this->getHelper()) {
                 Mage::log(print_r($goodsIssueList, true), Zend_Log::DEBUG, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE, true);
             }
         } catch (Exception $e) {
