@@ -32,21 +32,30 @@ class Swisspost_Yellowcube_Model_Queue_Message_Handler_Action_Processor_War
                     /**
                      * Define yc_shipped to 1 to be used later in BAR process that the shipping has been done
                      */
-                    $customerOrderList = $goodsIssue->getCustomerOrderList();
+                    $customerOrderDetails = $goodsIssue->getCustomerOrderList();
                     $shipmentItems = $shipment->getItemsCollection();
                     $hash = array();
 
-                    foreach ($customerOrderList as $customerOrderDetail) {
-                        reset($shipmentItems);
-                        foreach ($shipmentItems as $item) {
-                            /* @var $item Mage_Sales_Model_Order_Shipment_Item */
-                            if ($customerOrderDetail->getArticleNo() == $item->getSku() && !isset($hash[$item->getId()])) {
-                                $item
-                                    ->setAdditionalData(Zend_Json::encode(array('yc_shipped' => 1)))
-                                    ->save();
-                                $hash[$item->getId()] = true;
+                    try {
+                        foreach ($customerOrderDetails as $customerOrderDetail) {
+                            Mage::log('Debug $customerOrderDetail ' . print_r($customerOrderDetail, true), Zend_Log::DEBUG, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE, true);
+
+                            reset($shipmentItems);
+                            foreach ($shipmentItems as $item) {
+
+                                Mage::log('Debug $item ' . print_r($item, true), Zend_Log::DEBUG, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE, true);
+
+                                /* @var $item Mage_Sales_Model_Order_Shipment_Item */
+                                if ($customerOrderDetail->getArticleNo() == $item->getSku() && !isset($hash[$item->getId()])) {
+                                    $item
+                                        ->setAdditionalData(Zend_Json::encode(array('yc_shipped' => 1)))
+                                        ->save();
+                                    $hash[$item->getId()] = true;
+                                }
                             }
                         }
+                    } catch (Exception $e) {
+                        Mage::logException($e);
                     }
 
                     Mage::log($this->getHelper()->__('Items for shipment %s considered as shipped', $shipment->getIncrementId()), Zend_Log::DEBUG, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE, true);
@@ -56,7 +65,15 @@ class Swisspost_Yellowcube_Model_Queue_Message_Handler_Action_Processor_War
 
                     // Add a message to the order history incl. link to shipping infos
                     $message = $this->getHelper()->__('Your order has been shipped. You can use the following url for shipping tracking: <a href="%1$s" target="_blank">%1$s</a>', $shippingUrl);
+
+                    $track = Mage::getModel('sales/order_shipment_track');
+                    $track
+                        ->setCarrierCode($shipment->getOrder()->getShippingCarrier()->getCarrierCode())
+                        ->setTitle($this->getHelper()->__('SwissPost Tracking Code'))
+                        ->setNumber($shippingUrl);
+
                     $shipment
+                        ->addTrack($track)
                         ->addComment($this->getHelper()->__($message), true, true)
                         ->save();
 

@@ -21,7 +21,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
     const MAXTRIES = 1440;
 
     /**
-     * Process YC WAR
+     * Process WAB Status Update
      *
      * @param array $data
      * @return $this
