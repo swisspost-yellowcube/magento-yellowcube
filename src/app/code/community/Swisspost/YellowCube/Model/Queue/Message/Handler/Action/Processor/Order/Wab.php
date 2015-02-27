@@ -19,7 +19,7 @@ use \YellowCube\WAB\AdditionalService\AdditionalShippingServices;
 /**
  * Class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order
  */
-class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_New
+class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Wab
     extends Swisspost_YellowCube_Model_Queue_Message_Handler_Action_ProcessorAbstract
     implements Swisspost_YellowCube_Model_Queue_Message_Handler_Action_ProcessorInterface
 {
@@ -44,7 +44,9 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Ne
             ->setPartnerNo($this->cutString($data['partner_number']), 10)
             ->setPartnerReference($this->cutString($data['partner_email'] . $customerId), 50)
             ->setName1($this->cutString($data['partner_name']))
+            ->setName2($this->cutString($data['partner_name2']))
             ->setStreet($this->cutString($data['partner_street']))
+            ->setName3($this->cutString($data['partner_name3']))
             ->setCountryCode($data['partner_country_code'])
             ->setZIPCode($this->cutString($data['partner_zip_code']), 10)
             ->setCity($this->cutString($data['partner_city']))

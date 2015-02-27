@@ -5,7 +5,7 @@ class Swisspost_YellowCube_Model_Synchronizer
     const SYNC_ACTION_INSERT                = 'insert';
     const SYNC_ACTION_UPDATE                = 'update';
     const SYNC_ACTION_DEACTIVATE            = 'deactivate';
-    const SYNC_ORDER_NEW                    = 'order_new';
+    const SYNC_ORDER_WAB                    = 'order_wab';
     const SYNC_ORDER_UPDATE                 = 'order_update';
     const SYNC_INVENTORY                    = 'bar';
     const SYNC_WAR                          = 'war';
@@ -115,7 +115,7 @@ class Swisspost_YellowCube_Model_Synchronizer
         }
 
         $this->getQueue()->send(Zend_Json::encode(array(
-            'action'    => self::SYNC_ORDER_NEW,
+            'action'    => self::SYNC_ORDER_WAB,
             'store_id'  => $request->getStoreId(),
             'plant_id'  => $this->getHelper()->getPlantId($request->getStoreId()),
 
@@ -129,7 +129,9 @@ class Swisspost_YellowCube_Model_Synchronizer
             'partner_number'        => $this->getHelper()->getPartnerNumber($request->getStoreId()),
             'partner_reference'     => $request->getRecipientEmail(),
             'partner_name'          => $request->getRecipientContactPersonName(),
-            'partner_street'        => $request->getRecipientAddressStreet(),
+            'partner_name2'         => $request->getRecipientContactCompanyName(),
+            'partner_street'        => $request->getRecipientAddressStreet1(),
+            'partner_name3'         => $request->getRecipientAddressStreet2(),
             'partner_country_code'  => $request->getRecipientAddressCountryCode(),
             'partner_city'          => $request->getRecipientAddressCity(),
             'partner_zip_code'      => $request->getRecipientAddressPostalCode(),
