@@ -127,10 +127,69 @@
                         <label>PostPac Economy</label>
                         <code>ECO</code>
                     </eco>
+                    <eco_si translate="label" module="swisspost_yellowcube">
+                        <label>PostPac Economy with Signature</label>
+                        <code>ECO SI</code>
+                        <real_code>ECO</real_code>
+                        <additional>SI</additional>
+                    </eco_si>
                     <pri translate="label" module="swisspost_yellowcube">
                         <label>PostPac Priority</label>
                         <code>PRI</code>
                     </pri>
+                    <pri_si translate="label" module="swisspost_yellowcube">
+                        <label>PostPac Priority with Signature</label>
+                        <code>PRI SI</code>
+                        <real_code>PRI</real_code>
+                        <additional>SI</additional>
+                    </pri_si>
+                    <pri_si_az translate="label" module="swisspost_yellowcube">
+                        <label>PostPac Priority with Signature &amp; Evening delivery</label>
+                        <code>PRI SIAZ</code>
+                        <real_code>PRI</real_code>
+                        <additional>SI;AZ</additional>
+                    </pri_si_az>
+                    <pri_si_sa translate="label" module="swisspost_yellowcube">
+                        <label>PostPac Priority with Signature &amp; Saturday delivery</label>
+                        <code>PRI SISA</code>
+                        <real_code>PRI</real_code>
+                        <additional>SI;SA</additional>
+                    </pri_si_sa>
+                    <pickup translate="label" module="swisspost_yellowcube">
+                        <label>Pickup in Oftringen</label>
+                        <code>PICKUP</code>
+                    </pickup>
+                    <pickup_apost translate="label" module="swisspost_yellowcube">
+                        <label>Pickup A-POST</label>
+                        <code>PICKUP APOST</code>
+                        <real_code>PICKUP</real_code>
+                        <additional>APOST</additional>
+                    </pickup_apost>
+                    <pickup_intpri_gr translate="label" module="swisspost_yellowcube">
+                        <label>Pickup International Priority Gross</label>
+                        <code>PICKUP INTPRIGR</code>
+                        <real_code>PICKUP</real_code>
+                        <additional>INTPRI;GR</additional>
+                    </pickup_intpri_gr>
+                    <pickup_intpri_mx translate="label" module="swisspost_yellowcube">
+                        <label>Pickup International Priority Maxi</label>
+                        <code>PICKUP INTPRIMX</code>
+                        <real_code>PICKUP</real_code>
+                        <additional>INTPRI;MX</additional>
+                    </pickup_intpri_mx>
+                    <pickup_eco_gr translate="label" module="swisspost_yellowcube">
+                        <label>Pickup International Priority Gross</label>
+                        <code>PICKUP INTECOGR</code>
+                        <real_code>PICKUP</real_code>
+                        <additional>INTECO;GR</additional>
+                    </pickup_eco_gr>
+                    <pickup_eco_mx translate="label" module="swisspost_yellowcube">
+                        <label>Pickup International Eco Maxi</label>
+                        <code>PICKUP INTECOGR</code>
+                        <real_code>PICKUP</real_code>
+                        <additional>INTECO;MX</additional>
+                    </pickup_eco_mx>
+
                     <sp_eco translate="label" module="swisspost_yellowcube">
                         <label>Bulky goods PostPac Economy</label>
                         <code>SP ECO</code>
@@ -163,10 +222,6 @@
                         <label>Vinolog</label>
                         <code>VL</code>
                     </vl>
-                    <pickup translate="label" module="swisspost_yellowcube">
-                        <label>Collection customer/receiver - pick-up</label>
-                        <code>PICKUP</code>
-                    </pickup>
                     <retoure translate="label" module="swisspost_yellowcube">
                         <label>Return Shipment</label>
                         <code>RETOURE</code>

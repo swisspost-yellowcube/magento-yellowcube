@@ -33,7 +33,6 @@ class Swisspost_YellowCube_Model_Shipping_Carrier_Rate extends Mage_Shipping_Mod
 
         /** @var Mage_Shipping_Model_Rate_Result $result */
         $result = Mage::getModel('shipping/rate_result');
-        $methodPrice = (int)$this->getConfigData('handling_fee');
 
         foreach ($this->getAllowedMethods() as $methodCode => $methodName) {
             /** @var Mage_Shipping_Model_Rate_Result_Method $method */
@@ -42,7 +41,7 @@ class Swisspost_YellowCube_Model_Shipping_Carrier_Rate extends Mage_Shipping_Mod
             $method->setCarrierTitle($this->getConfigData('title'));
             $method->setMethod($methodCode);
             $method->setMethodTitle($methodName);
-            $method->setPrice($methodPrice);
+            $method->setPrice($this->getPriceMethod($methodCode));
             $method->setCost(0);
 
             $result->append($method);
@@ -51,17 +50,47 @@ class Swisspost_YellowCube_Model_Shipping_Carrier_Rate extends Mage_Shipping_Mod
         return $result;
     }
 
+    /**
+     * Get the price depending the method
+     *
+     * @param $code
+     * @return int
+     */
+    public function getPriceMethod($code)
+    {
+        $allowedMethods = unserialize($this->getConfigData('allowed_methods'));
+
+        foreach ($allowedMethods as $method) {
+            if ($method['allowed_methods'] == $code) {
+                return $method['price'];
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * Get allowed Methods
+     *
+     * @return array
+     */
     public function getAllowedMethods()
     {
-        /** @var Swisspost_YellowCube_Model_Shipping_Carrier_Source_Method $method */
-        $method = Mage::getSingleton('swisspost_yellowcube/shipping_carrier_source_method');
-        $methods = $method->getMethods();
+        $methods = Mage::getSingleton('swisspost_yellowcube/shipping_carrier_source_method')->getMethods();
+        $allowedMethods = unserialize($this->getConfigData('allowed_methods'));
 
-        $allowed = explode(',', $this->getConfigData('allowed_methods'));
-        $arr = array();
-        foreach ($allowed as $k) {
-            $arr[$k] = $methods[$k];
+        $allowed = array();
+        foreach ($allowedMethods as $method) {
+            $allowed[$method['allowed_methods']] = $method['allowed_methods'];
         }
+
+        $arr = array();
+        foreach ($methods as $key => $method) {
+            /* @var $method Mage_Core_Model_Config_Element */
+            if (array_key_exists($key, $allowed)) {
+                $arr[$key] = $methods[$key];
+            }
+        };
+
         return $arr;
     }
 

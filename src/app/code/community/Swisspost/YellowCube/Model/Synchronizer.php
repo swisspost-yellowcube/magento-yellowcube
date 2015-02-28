@@ -140,8 +140,8 @@ class Swisspost_YellowCube_Model_Synchronizer
             'partner_language'      => $locale[0], // possible values expected de|fr|it|en ...
 
             // ValueAddedServices - AdditionalService
-            'service_basic_shipping'      => $request->getShippingMethod(),
-            'service_additional_shipping' => $helper->getAdditionalShipping($request->getStoreId()),
+            'service_basic_shipping'      => $helper->getRealCode($request->getShippingMethod()),
+            'service_additional_shipping' => $helper->getAdditionalShipping($request->getShippingMethod()),
 
             // Order Positions
             'items' => $positionItems
