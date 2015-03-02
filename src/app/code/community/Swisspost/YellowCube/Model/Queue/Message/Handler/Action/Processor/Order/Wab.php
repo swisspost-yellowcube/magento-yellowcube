@@ -108,7 +108,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Wa
                 }
 
                 $shipment
-                    ->addComment($this->getHelper()->__('Order #%s was successfully transmitted to YellowCube. Received reference number %s and status message "%s".', $data['order_id'], $response->getReference(), $response->getStatusText()), false, false)
+                    ->addComment($this->getHelper()->__('Shipment #%s for Order #%s was successfully transmitted to YellowCube. Received reference number %s and status message "%s".', $shipment->getIncrementId(), $data['order_id'], $response->getReference(), $response->getStatusText()), false, false)
                     ->save();
 
                 // WAR Message

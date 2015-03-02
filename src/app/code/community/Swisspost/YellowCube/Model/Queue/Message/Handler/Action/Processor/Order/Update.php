@@ -35,8 +35,8 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
 
         try {
             if (!is_object($response) || !$response->isSuccess()) {
-                $message = $this->getHelper()->__('Order #%s Status with YellowCube Transaction ID could not get from YellowCube: "%s".',
-                    $data['order_id'], $data['yc_reference'], $response->getStatusText());
+                $message = $this->getHelper()->__('Shipment #%s Status for Order #%s with YellowCube Transaction ID could not received from YellowCube: "%s".',
+                    $shipment->getIncrementId(), $data['order_id'], $data['yc_reference'], $response->getStatusText());
 
                 $shipment
                     ->addComment($message, false, false)
@@ -63,7 +63,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Up
             } else {
                 if ($response->isSuccess() && !$response->isPending() && !$response->isError()) {
                     $shipment
-                        ->addComment($this->getHelper()->__('Order status for YellowCube and the order %s is successful', $data['order_id']), false, false)
+                        ->addComment($this->getHelper()->__('The shipment status has been correctly received from YellowCube'), false, false)
                         ->save();
                 }
 
