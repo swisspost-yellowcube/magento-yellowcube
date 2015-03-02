@@ -79,7 +79,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Wa
         $response = $this->getYellowCubeService()->createYCCustomerOrder($ycOrder);
         try {
             if (!is_object($response) || !$response->isSuccess()) {
-                $message = $this->getHelper()->__('Order #%s could not be transmitted to YellowCube: "%s".', $data['order_id'], $response->getStatusText());
+                $message = $this->getHelper()->__('Shipment #%s for Order #%s could not be transmitted to YellowCube: "%s".', $shipment->getIncrementId(), $data['order_id'], $response->getStatusText());
 
                 $shipment
                     ->addComment($message, false, false)
