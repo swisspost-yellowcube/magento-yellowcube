@@ -143,12 +143,12 @@
                         <real_code>PRI</real_code>
                         <additional>SI</additional>
                     </pri_si>
-                    <pri_si_asz translate="label" module="swisspost_yellowcube">
+                    <pri_si_azs translate="label" module="swisspost_yellowcube">
                         <label>PostPac Priority with Signature &amp; Evening delivery</label>
-                        <code>PRI SIASZ</code>
+                        <code>PRI SIAZS</code>
                         <real_code>PRI</real_code>
-                        <additional>SI;ASZ</additional>
-                    </pri_si_asz>
+                        <additional>SI;AZS</additional>
+                    </pri_si_azs>
                     <pri_si_sa translate="label" module="swisspost_yellowcube">
                         <label>PostPac Priority with Signature &amp; Saturday delivery</label>
                         <code>PRI SISA</code>
