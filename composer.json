@@ -7,21 +7,13 @@
     "require":{
         "php": ">=5.3.2",
         "magento-hackathon/magento-composer-installer":"2.*",
-        "liip/yellowcube-php": "dev-master",
+        "swisspost-yellowcube/yellowcube-php": "dev-master",
         "course-hero/wse-php": "dev-master"
     },
     "repositories":[
         {
             "type": "vcs",
             "url": "git@github.com:swisspost-yellowcube/yellowcube-magento.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@github.com:swisspost-yellowcube/yellowcube-php.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/liip-forks/wse-php.git"
         }
     ],
     "minimum-stability": "dev"
