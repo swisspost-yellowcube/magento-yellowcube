@@ -59,45 +59,9 @@ Do not forget the folder "lib"
 #### Via Composer
 
 - Install [composer](http://getcomposer.org/download/)
-- Create a composer.json into the root folder of your project with the following sample:
-
-```
- {
-    "require" : {
-        "liip/yellowcube-magento": "1.*"
-    },
-    "repositories" : [
-        {
-            "type": "vcs",
-            "url": "git@github.com:liip/yellowcube-magento.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@github.com:liip/yellowcube-php.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/liip-forks/wse-php.git"
-        }
-    ],
-     "scripts": {
-         "post-package-install": [
-             "YellowCube\\Composer\\Magento::postPackageAction"
-         ],
-         "post-package-update": [
-             "YellowCube\\Composer\\Magento::postPackageAction"
-         ],
-         "pre-package-uninstall": [
-             "YellowCube\\Composer\\Magento::cleanPackageAction"
-         ]
-     },
-     "extra":{
-       "magento-root-dir": "./"
-     },
-     "minimum-stability": "dev"
- }
- ```
-- Then from your composer.json folder: `php composer.phar install` or `composer install`
+- Run `composer init` in your root folder of your project
+- Run `composer require swisspost-yellowcube/yellowcube-php`
+- Run `composer require magento-hackathon/magento-composer-installer` and follow the instructions.
 
 
 ## Configuration
