@@ -9,11 +9,5 @@
         "magento-hackathon/magento-composer-installer":"2.*",
         "swisspost-yellowcube/yellowcube-php": "dev-master"
     },
-    "repositories":[
-        {
-            "type": "vcs",
-            "url": "git@github.com:swisspost-yellowcube/yellowcube-magento.git"
-        }
-    ],
     "minimum-stability": "dev"
 }
