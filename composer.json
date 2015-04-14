@@ -7,7 +7,6 @@
     "require":{
         "php": ">=5.3.2",
         "magento-hackathon/magento-composer-installer":"2.*",
-        "swisspost-yellowcube/yellowcube-php": "dev-master"
-    },
-    "minimum-stability": "dev"
+        "swisspost-yellowcube/yellowcube-php": "~1.0"
+    }
 }
