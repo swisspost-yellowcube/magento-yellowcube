@@ -101,7 +101,7 @@ class Swisspost_YellowCube_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCertificatePassword($storeId = Mage_Core_Model_Store::ADMIN_CODE)
     {
-        return (string)$this->getDefaultConfig(self::CONFIG_CERT_PASSWORD, $storeId);
+        return Mage::helper('core')->decrypt((string)$this->getDefaultConfig(self::CONFIG_CERT_PASSWORD, $storeId));
     }
 
     /**
@@ -210,5 +210,48 @@ class Swisspost_YellowCube_Helper_Data extends Mage_Core_Helper_Abstract
             }
         }
         return '';
+    }
+
+    /**
+     * @param string $func
+     * @return bool
+     */
+    public function isFunctionAvailable($func)
+    {
+        if (ini_get('safe_mode')) {
+            return false;
+        }
+        $disabled = ini_get('disable_functions');
+        if ($disabled) {
+            $disabled = explode(',', $disabled);
+            $disabled = array_map('trim', $disabled);
+            return !in_array($func, $disabled);
+        }
+        return true;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getGSBin()
+    {
+        $gsPath = Mage::getConfig()->getModuleDir(null, 'Swisspost_YellowCube') . DS . 'bin' . DS;
+
+        $bits = strlen(decbin(~0)); // bits = 32 or 64
+
+        if (strncasecmp(PHP_OS, 'WIN', 3) == 0) {
+            $gsPath .= 'gs915w' . $bits . '.exe';
+        } else {
+            $suffix = '';
+            if ($bits == 64) {
+                $suffix = '_64';
+            }
+            $gsPath .= 'gs-915-linux_x86' . $suffix;
+        }
+
+        if (file_exists($gsPath)) {
+            return $gsPath;
+        }
+        return null;
     }
 }

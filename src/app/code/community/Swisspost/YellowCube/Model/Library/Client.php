@@ -13,7 +13,8 @@ class Swisspost_YellowCube_Model_Library_Client
      */
     public function getService()
     {
-        return new YellowCube\Service($this->getServiceConfig());
+        $logger = new Swisspost_YellowCube_Model_Library_Logger();
+        return new YellowCube\Service($this->getServiceConfig(), null, $logger);
     }
 
     /**
@@ -40,8 +41,8 @@ class Swisspost_YellowCube_Model_Library_Client
         );
 
         // Certificate handling
-        if (in_array($helper->getOperationMode(), array('P', 'T'))) {
-            if (!empty($certificatePath) && file_exists($certificatePath)) {
+        if (in_array($helper->getOperationMode(), array('P', 'T', 'D'))) {
+            if (!empty($certificatePath)) {
                 $config->setCertificateFilePath($certificatePath, $certificatePassword);
             }
         }
