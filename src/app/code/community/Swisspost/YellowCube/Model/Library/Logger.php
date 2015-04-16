@@ -41,12 +41,6 @@ class Swisspost_YellowCube_Model_Library_Logger extends AbstractLogger
             return;
         }
 
-        foreach ($context as $key => $value) {
-            if (false !==strpos($message, '{' . $key . '}')) {
-                $message = str_replace('{' . $key . '}', '@' . $key, $message);
-            }
-        }
-
-        Mage::log($message, self::$levelMap[$level], $this->logFileName, true);
+        Mage::log($message . print_r($context, true), self::$levelMap[$level], $this->logFileName, true);
     }
 }
