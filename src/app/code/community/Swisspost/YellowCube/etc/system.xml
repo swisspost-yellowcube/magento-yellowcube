@@ -65,6 +65,7 @@
                         <certificate_path translate="label comment">
                             <label>Path to Certificate</label>
                             <comment>For security reasons, the certificate should be placed outside of the webroot.</comment>
+                            <backend_model>swisspost_yellowcube/shipping_carrier_source_certificate_path_backend</backend_model>
                             <frontend_type>text</frontend_type>
                             <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
@@ -99,7 +100,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </tara_factor>
-                        <operation_mode>
+                        <operation_mode translate="label comment">
                             <label>Operation Mode</label>
                             <frontend_type>select</frontend_type>
                             <source_model>swisspost_yellowcube/shipping_carrier_source_operation</source_model>
@@ -107,6 +108,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <comment>In 'Production' mode the certificate is required.</comment>
                         </operation_mode>
                         <title translate="label">
                             <label>Title</label>

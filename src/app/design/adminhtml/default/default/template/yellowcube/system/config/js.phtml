@@ -1,0 +1,11 @@
+<script type="text/javascript">
+    if ($('carriers_yellowcube_operation_mode')) {
+        $('carriers_yellowcube_operation_mode').observe('change', function(event) {
+            if (this.value == '<?php echo Swisspost_YellowCube_Model_Shipping_Carrier_Source_Operation::MODE_PRODUCTION ?>') {
+                $('carriers_yellowcube_certificate_path').addClassName('required-entry');
+            } else {
+                $('carriers_yellowcube_certificate_path').removeClassName('required-entry');
+            }
+        });
+    }
+</script>
