@@ -10,4 +10,9 @@
             <block type="core/template" name="yellowcube.catalog.product.js" template="yellowcube/catalog/product/js.phtml"/>
         </reference>
     </adminhtml_catalog_product_edit>
+    <adminhtml_system_config_edit>
+        <reference name="js">
+            <block type="core/template" name="yellowcube.system.config.js" template="yellowcube/system/config/js.phtml"/>
+        </reference>
+    </adminhtml_system_config_edit>
 </layout>

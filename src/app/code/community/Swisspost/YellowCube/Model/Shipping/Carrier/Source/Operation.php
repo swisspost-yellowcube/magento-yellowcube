@@ -13,16 +13,30 @@
  */
 class Swisspost_YellowCube_Model_Shipping_Carrier_Source_Operation
 {
+    const MODE_TESTING = 'T';
+    const MODE_DEVELOPMENT = 'D';
+    const MODE_PRODUCTION = 'P';
+
     /**
      * @return array
      */
     public function toOptionArray()
     {
         $helper = Mage::helper('swisspost_yellowcube');
-        $arr[] = array('value' => 'T', 'label' => $helper->__('Test'));
-        $arr[] = array('value' => 'D', 'label' => $helper->__('Development'));
-        $arr[] = array('value' => 'P', 'label' => $helper->__('Production'));
 
-        return $arr;
+        return array(
+            array(
+                'value' => self::MODE_TESTING,
+                'label' => $helper->__('Test')
+            ),
+            array(
+                'value' => self::MODE_DEVELOPMENT,
+                'label' => $helper->__('Development')
+            ),
+            array(
+                'value' => self::MODE_PRODUCTION,
+                'label' => $helper->__('Production')
+            )
+        );
     }
 }
