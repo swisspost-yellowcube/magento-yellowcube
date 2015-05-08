@@ -254,4 +254,19 @@ class Swisspost_YellowCube_Helper_Data extends Mage_Core_Helper_Abstract
         }
         return null;
     }
+
+    /**
+     * @param string $fullName
+     * @param string $zip
+     * @return string
+     */
+    public function getPartnerReference($fullName, $zip)
+    {
+        $result = '';
+        foreach (explode(' ', $fullName) as $name) {
+            $result .= mb_strtoupper(mb_substr($name, 0, 1));
+        }
+
+        return $result . '-' . $zip;
+    }
 }

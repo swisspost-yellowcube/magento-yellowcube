@@ -43,7 +43,11 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Wa
         $partner
             ->setPartnerType($data['partner_type'])
             ->setPartnerNo($this->cutString($data['partner_number']), 10)
-            ->setPartnerReference($this->cutString($data['partner_email'] . $customerId), 50)
+            ->setPartnerReference(
+                $this->cutString(
+                    $this->getHelper()->getPartnerReference($data['partner_name'], $data['partner_zip_code'])
+                ), 50
+            )
             ->setName1($this->cutString($data['partner_name']))
             ->setName2($this->cutString($data['partner_name2']))
             ->setStreet($this->cutString($data['partner_street']))
