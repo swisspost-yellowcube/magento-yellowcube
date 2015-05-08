@@ -36,7 +36,7 @@ Some classes and javascript contain a MIT license.
 
 ```
 
-git clone https://github.com/liip/yellowcube-magento.git
+git clone https://github.com/swisspost-yellowcube/magento-yellowcube.git
 
 git submodule init
 
@@ -54,13 +54,13 @@ Do not forget the folder "lib"
 ### Via modman
 
 - Install [modman](https://github.com/colinmollenhour/modman)
-- Use the command from your Magento installation folder: `modman clone https://github.com/liip/yellowcube-magento.git`
+- Use the command from your Magento installation folder: `modman clone https://github.com/swisspost-yellowcube/magento-yellowcube.git`
 
 #### Via Composer
 
 - Install [composer](http://getcomposer.org/download/)
 - Run `composer init` in your root folder of your project
-- Run `composer require swisspost-yellowcube/yellowcube-php`
+- Run `composer require swisspost-yellowcube/magento-yellowcube`
 - Run `composer require magento-hackathon/magento-composer-installer` and follow the instructions.
 
 
