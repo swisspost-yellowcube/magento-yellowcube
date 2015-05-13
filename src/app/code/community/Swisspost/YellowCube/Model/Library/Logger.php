@@ -1,6 +1,6 @@
 <?php
 
-use YellowCube\Util\AbstractLogger;
+use Psr\Log\AbstractLogger;
 use Psr\Log\LogLevel;
 
 /**
@@ -27,20 +27,8 @@ class Swisspost_YellowCube_Model_Library_Logger extends AbstractLogger
     /**
      * @inheritdoc
      */
-    public function __construct($minLevel = LogLevel::DEBUG)
-    {
-        parent::__construct($minLevel);
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function log($level, $message, array $context = array())
     {
-        if ($this->isLevelLessThanMinimum($level)) {
-            return;
-        }
-
         Mage::log($message . print_r($context, true), self::$levelMap[$level], $this->logFileName, true);
     }
 }
