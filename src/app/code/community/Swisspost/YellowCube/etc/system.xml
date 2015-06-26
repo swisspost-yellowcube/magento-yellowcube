@@ -63,7 +63,7 @@
                             <show_in_store>0</show_in_store>
                         </plant_id>
                         <certificate_path translate="label comment">
-                            <label>Path and Filename to Certificate</label>
+                            <label>Certificate Path and Filename</label>
                             <comment>For security reasons, the certificate should be placed outside of the webroot.</comment>
                             <backend_model>swisspost_yellowcube/shipping_carrier_source_certificate_path_backend</backend_model>
                             <frontend_type>text</frontend_type>
