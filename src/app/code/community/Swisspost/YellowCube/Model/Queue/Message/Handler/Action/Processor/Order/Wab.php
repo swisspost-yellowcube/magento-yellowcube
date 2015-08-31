@@ -150,33 +150,14 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Wa
      */
     public function getPdfA(Mage_Sales_Model_Order_Shipment $shipment)
     {
-        if (!$this->getHelper()->isFunctionAvailable('exec')) {
-            return false;
-        }
-
         $pdf = Mage::getModel('sales/order_pdf_shipment')->getPdf(array($shipment));
-        $fileNameTemplate = Mage::getBaseDir('tmp') . DS . 'packingslip_'
-            . Mage::getSingleton('core/date')->date('Y-m-d_H-i-s');
-        $pdfTargetFileName = $fileNameTemplate . '.pdf';
-        $pdfSrcFileName = $fileNameTemplate . '_src.pdf';
+        $pdfFileName = Mage::getBaseDir('tmp') . DS . 'packingslip_'
+            . Mage::getSingleton('core/date')->date('Y-m-d_H-i-s') . '.pdf';
 
-        $handle = @fopen($pdfSrcFileName, 'w+');
+        $handle = @fopen($pdfFileName, 'w+');
         $pdf->render(false, $handle);
         @fclose($handle);
 
-        $gsPath = $this->getHelper()->getGSBin();
-
-        if (null === $gsPath) {
-            Mage::log('GhostScript executable not found', Zend_Log::ERR, Swisspost_YellowCube_Helper_Data::YC_LOG_FILE);
-        } else {
-            exec("{$gsPath} -dPDFA -dBATCH -dNOPAUSE -sProcessColorModel=DeviceRGB -sDEVICE=pdfwrite -sPDFACompatibilityPolicy=1 -dCompatibilityLevel=1.4 -sOutputFile={$pdfTargetFileName} {$pdfSrcFileName}", $gsOutput, $exitCode);
-        }
-        // After running the above command with $exitCode == 0 the $savePath will have the good PDF.
-        // $savePathTmp is the path where ghost view will put a temporary working file, after the
-        // command is executed you can delete it.
-
-        return $pdfTargetFileName;
+        return $pdfFileName;
     }
-
-
 }
