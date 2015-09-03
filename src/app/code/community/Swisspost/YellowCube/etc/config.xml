@@ -271,7 +271,27 @@
                 </swisspost_yellowcube>
             </updates>
         </layout>
+        <translate>
+            <modules>
+                <Swisspost_YellowCube>
+                    <files>
+                        <default>Swisspost_YellowCube.csv</default>
+                    </files>
+                </Swisspost_YellowCube>
+            </modules>
+        </translate>
     </adminhtml>
+    <frontend>
+        <translate>
+            <modules>
+                <Swisspost_YellowCube>
+                    <files>
+                        <default>Swisspost_YellowCube.csv</default>
+                    </files>
+                </Swisspost_YellowCube>
+            </modules>
+        </translate>
+    </frontend>
     <default>
         <carriers>
             <yellowcube>
