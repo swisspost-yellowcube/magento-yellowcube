@@ -1,7 +1,9 @@
 <?php
 
+use Psr\Log\LogLevel;
 use YellowCube\Service;
 use YellowCube\Config;
+use YellowCube\Util\Logger\MinLevelFilterLogger;
 
 /**
  * Class Swisspost_YellowCube_Model_Library_Client
@@ -13,7 +15,7 @@ class Swisspost_YellowCube_Model_Library_Client
      */
     public function getService()
     {
-        $logger = new Swisspost_YellowCube_Model_Library_Logger();
+        $logger = new MinLevelFilterLogger(LogLevel::DEBUG, new Swisspost_YellowCube_Model_Library_Logger());
         return new YellowCube\Service($this->getServiceConfig(), null, $logger);
     }
 

@@ -33,7 +33,7 @@
 "Depositor Number","Depositor Number"
 "Partner Number","Partner Number"
 "Plant-ID","Plant-ID"
-"Path to Certificate","Path to Certificate"
+"Certificate Path and Filename","Certificate Path and Filename"
 "For security reasons, the certificate should be placed outside of the webroot.","For security reasons, the certificate should be placed outside of the webroot."
 "Certificate Password","Certificate Password"
 "Shipping Method","Shipping Method"

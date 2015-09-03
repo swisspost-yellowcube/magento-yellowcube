@@ -127,7 +127,10 @@ class Swisspost_YellowCube_Model_Synchronizer
             // Partner Address
             'partner_type'          => Swisspost_YellowCube_Helper_Data::PARTNER_TYPE,
             'partner_number'        => $this->getHelper()->getPartnerNumber($request->getStoreId()),
-            'partner_reference'     => $request->getRecipientEmail(),
+            'partner_reference'     => $this->getHelper()->getPartnerReference(
+                $request->getRecipientContactPersonName(),
+                $request->getRecipientAddressPostalCode()
+            ),
             'partner_name'          => $request->getRecipientContactPersonName(),
             'partner_name2'         => $request->getRecipientContactCompanyName(),
             'partner_street'        => $request->getRecipientAddressStreet1(),
