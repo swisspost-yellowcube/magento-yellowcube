@@ -231,31 +231,6 @@ class Swisspost_YellowCube_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @return null|string
-     */
-    public function getGSBin()
-    {
-        $gsPath = Mage::getConfig()->getModuleDir(null, 'Swisspost_YellowCube') . DS . 'bin' . DS;
-
-        $bits = strlen(decbin(~0)); // bits = 32 or 64
-
-        if (strncasecmp(PHP_OS, 'WIN', 3) == 0) {
-            $gsPath .= 'gs915w' . $bits . '.exe';
-        } else {
-            $suffix = '';
-            if ($bits == 64) {
-                $suffix = '_64';
-            }
-            $gsPath .= 'gs-915-linux_x86' . $suffix;
-        }
-
-        if (file_exists($gsPath)) {
-            return $gsPath;
-        }
-        return null;
-    }
-
-    /**
      * @param string $fullName
      * @param string $zip
      * @return string

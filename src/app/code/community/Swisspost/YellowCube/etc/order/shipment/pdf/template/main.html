@@ -1,0 +1,54 @@
+<div class="header">
+    <ul>
+        <li>{{packingslip_id_label}}{{packingslip_id}}</li>
+        <li>{{order_id_label}}{{order_id}}</li>
+        <li>{{order_date_label}}{{order_date}}</li>
+    </ul>
+</div>
+<table class="data-table">
+    <tr>
+        <th>{{billing_address_label}}</th>
+        <th>{{shipping_address_label}}</th>
+    </tr>
+    <tr>
+        <td>
+            {{billing_name}}<br>
+            {{billing_street}}<br>
+            {{billing_city}}, {{billing_zip}}<br>
+            {{billing_country}}<br>
+            T: {{billing_phone}}<br>
+        </td>
+        <td>
+            {{shipping_name}}<br>
+            {{shipping_street}}<br>
+            {{shipping_city}}, {{shipping_zip}}<br>
+            {{shipping_country}}<br>
+            T: {{shipping_phone}}<br>
+        </td>
+    </tr>
+</table>
+<br><br>
+<table class="data-table">
+    <tr>
+        <th>{{payment_method_label}}</th>
+        <th>{{shipping_method_label}}</th>
+    </tr>
+    <tr>
+        <td>
+            {{payment_method}}
+        </td>
+        <td>
+            {{shipping_method}}<br>
+            {{shipping_charges}}<br>
+        </td>
+    </tr>
+</table>
+<br><br>
+<table class="data-table products">
+    <tr>
+        <th>{{products_qty_label}}</th>
+        <th>{{products_label}}</th>
+        <th>{{products_sku_label}}</th>
+    </tr>
+    {{products_data}}
+</table>
