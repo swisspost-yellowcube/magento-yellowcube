@@ -77,6 +77,3 @@
 "Production","Production"
 "Synchronization task has not been sent to the queue! Try again?","Synchronization task has not been sent to the queue! Try again?"
 "Synchronization task has been sent to the queue!","Synchronization task has been sent to the queue!"
-"The shipment status has been correctly received from YellowCube","The shipment status has been correctly received from YellowCube"
-"Failed to load certificate from '%s'","Failed to load certificate from '%s'"
-"In 'Production' mode the certificate is required.","In 'Production' mode the certificate is required."
