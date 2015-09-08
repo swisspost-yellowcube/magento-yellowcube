@@ -9,8 +9,6 @@
 This extension is licensed under OSL v.3.0
 Some classes and javascript contain a MIT license.
 
-## Support & Documentation
-
 ## System requirements
 
 - Magento CE >= 1.6.x to 1.9.x
@@ -19,10 +17,6 @@ Some classes and javascript contain a MIT license.
 - Cron enabled and configured for Magento (set your cron at server level to a period of 5 min to launch internal task related to the rircardo extension
 */5 * * * * php path/to/my/magento/cron.php)
 
-## Features
-
--
-- 
 
 ## Installation
 
@@ -81,8 +75,3 @@ Set the origin of the shipment:
 In Menu `System > Configuration > Shipping Methods`
 
 Fill all information related to the register "Swisspost YellowCube"
-
-## Known Issues
-
-None
-
