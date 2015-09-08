@@ -51,11 +51,6 @@ Then copy the files and folders in the corresponding Magento folders
 Do not forget the folder "lib"
 
 
-### Via modman
-
-- Install [modman](https://github.com/colinmollenhour/modman)
-- Use the command from your Magento installation folder: `modman clone https://github.com/swisspost-yellowcube/magento-yellowcube.git`
-
 #### Via Composer
 
 - Install [composer](http://getcomposer.org/download/)
