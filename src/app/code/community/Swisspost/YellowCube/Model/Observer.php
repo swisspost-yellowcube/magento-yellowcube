@@ -305,20 +305,7 @@ class Swisspost_YellowCube_Model_Observer
     }
 
     /**
-     * @return array
-     */
-    protected function _getNamespacesToRegister()
-    {
-        $namespaces = array();
-        $node = Mage::getConfig()->getNode(self::CONFIG_PATH_PSR0NAMESPACES);
-        if ($node && is_array($node->asArray())) {
-            $namespaces = array_keys($node->asArray());
-        }
-        return $namespaces;
-    }
-
-    /**
-     * Add PSR-0 Autoloader for our Yellowcube library
+     * Add Composer Autoloader for our YellowCube library
      *
      * Event
      * - resource_get_tablename
@@ -330,14 +317,9 @@ class Swisspost_YellowCube_Model_Observer
             return;
         }
 
-        foreach ($this->_getNamespacesToRegister() as $namespace) {
-            $namespace = str_replace('_', '/', $namespace);
-            if (is_dir(Mage::getBaseDir('lib') . DS . $namespace)) {
-                $args = array($namespace, Mage::getBaseDir('lib') . DS . $namespace);
-                $autoloader = Mage::getModel("swisspost_yellowcube/splAutoloader", $args);
-                $autoloader->register();
-            }
-        }
+        /** @var \Composer\Autoload\ClassLoader $loader */
+        $loader = require BP . '/vendor/autoload.php';
+        $loader->register();
 
         self::$shouldAdd = false;
         return $this;

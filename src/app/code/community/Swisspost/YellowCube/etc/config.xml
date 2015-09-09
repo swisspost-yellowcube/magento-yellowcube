@@ -8,12 +8,6 @@
     </modules>
 
     <global>
-        <psr0_namespaces>
-            <!-- Required to load the YellowCube PHP library -->
-            <YellowCube />
-            <Assert />
-        </psr0_namespaces>
-
         <blocks>
             <swisspost_yellowcube>
                 <class>Swisspost_YellowCube_Block</class>

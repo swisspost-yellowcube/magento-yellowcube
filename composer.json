@@ -1,5 +1,11 @@
 {
     "name":"swisspost-yellowcube/magento-yellowcube",
+    "authors": [
+        {
+            "name": "Liip AG",
+            "email": "contact@liip.ch"
+        }
+    ],
     "type":"magento-module",
     "license":"OSL-3.0",
     "homepage":"http://www.yellowcube.ch",
