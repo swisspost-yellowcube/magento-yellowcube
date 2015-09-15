@@ -32,6 +32,8 @@ class Swisspost_YellowCube_Model_Synchronizer
             'product_uom' => $product->getData('yc_dimension_uom'),
             'product_volume' => $product->getData('yc_dimension_height') * $product->getData('yc_dimension_length') *  $product->getData('yc_dimension_width'),
             'tara_factor' => Mage::getStoreConfig(Swisspost_YellowCube_Helper_Data::CONFIG_TARA_FACTOR, Mage::app()->getWebsite($product->getWebsiteId())->getDefaultStore()->getId()),
+            'product_ean' => $product->getData('yc_ean_code'),
+            'product_ean_type' => $product->getData('yc_ean_type'),
         )));
 
         return $this;
@@ -62,6 +64,9 @@ class Swisspost_YellowCube_Model_Synchronizer
             'yc_dimension_width',
             'yc_dimension_height',
             'yc_dimension_uom',
+            'yc_ean_type',
+            'yc_ean_code',
+
         ));
         $collection->addFieldToFilter('yc_sync_with_yellowcube', 1);
 
@@ -106,9 +111,11 @@ class Swisspost_YellowCube_Model_Synchronizer
 
         $positionItems = array();
         foreach ($order->getAllItems() as $item) {
+            $product = Mage::getModel('catalog/product')->load($item->getProductId());
             $positionItems[] = array(
                 'article_id' => $item->getProductId(),
                 'article_number' => $item->getSku(),
+                'article_ean' => $product->getData('yc_ean_code'),
                 'article_title' => $item->getName(),
                 'article_qty' => $item->getQty(),
             );

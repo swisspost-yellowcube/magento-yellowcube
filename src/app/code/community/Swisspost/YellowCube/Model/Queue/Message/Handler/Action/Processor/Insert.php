@@ -33,6 +33,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Insert
             ->setWidth($this->formatUom($data['product_width']), $uom)
             ->setHeight($this->formatUom($data['product_height']), $uom)
             ->setVolume($this->formatUom($data['product_volume']), $uomq)
+            ->setEAN($data['product_ean'], $data['product_ean_type'])
             ->addArticleDescription($this->formatDescription($data['product_name']), 'de'); // @todo provide the language of the current description (possible values de|fr|it|en)
 
         $response = $this->getYellowCubeService()->insertArticleMasterData($article);

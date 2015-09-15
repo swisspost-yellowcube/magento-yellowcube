@@ -84,6 +84,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Wa
             $position
                 ->setPosNo($key + 1)
                 ->setArticleNo($this->cutString($item['article_number']))
+                ->setEAN($this->cutString($item['article_ean']))
                 ->setPlant($this->cutString($data['plant_id']), 4)
                 ->setQuantity($item['article_qty'])
                 ->setQuantityISO(\YellowCube\ART\UnitsOfMeasure\ISO::PCE)
