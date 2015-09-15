@@ -15,17 +15,19 @@ class Swisspost_YellowCube_Model_Dimension_Uom_Attribute_Source extends Mage_Eav
      */
     public function getAllOptions()
     {
-        if (is_null($this->_options)) {
-            $this->_options = array(
-                array(
-                    'label' => Mage::helper('swisspost_yellowcube')->__('Metre'),
-                    'value' => self::VALUE_MTR
-                ),
-                array(
-                    'label' => Mage::helper('swisspost_yellowcube')->__('Centimetre'),
-                    'value' => self::VALUE_CMT
-                ),
-            );
+        $productTypes = Mage::getConfig()->getNode('global/catalog/product/type')->asArray();
+
+        if (is_null($this->_options))
+        {
+            $this->_options = array();
+            foreach(Mage::getConfig()->getNode('global/carriers/yellowcube/dimension/uom')->asArray() as $key => $elements)
+            {
+                $this->_options[] =
+                    array(
+                        'label' => Mage::helper('swisspost_yellowcube')->__($elements['label']),
+                        'value' => $key
+                    );
+            }
         }
         return $this->_options;
     }

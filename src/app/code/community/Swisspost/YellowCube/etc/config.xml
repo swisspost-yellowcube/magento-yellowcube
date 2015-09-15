@@ -116,6 +116,56 @@
         </events>
         <carriers>
             <yellowcube>
+                <dimension>
+                    <uom>
+                        <mtr translate="label" module="swisspost_yellowcube">
+                            <label>Metre</label>
+                        </mtr>
+                        <cmt translate="label" module="swisspost_yellowcube">
+                            <label>Centimetre</label>
+                        </cmt>
+                    </uom>
+                </dimension>
+                <ean>
+                    <type>
+                        <he translate="label" module="swisspost_yellowcube">
+                            <label>HE</label>
+                        </he>
+                        <e5 translate="label" module="swisspost_yellowcube">
+                            <label>E5</label>
+                        </e5>
+                        <ea translate="label" module="swisspost_yellowcube">
+                            <label>EA</label>
+                        </ea>
+                        <hk translate="label" module="swisspost_yellowcube">
+                            <label>HK</label>
+                        </hk>
+                        <i6 translate="label" module="swisspost_yellowcube">
+                            <label>I6</label>
+                        </i6>
+                        <ic translate="label" module="swisspost_yellowcube">
+                            <label>IC</label>
+                        </ic>
+                        <ie translate="label" module="swisspost_yellowcube">
+                            <label>IE</label>
+                        </ie>
+                        <ik translate="label" module="swisspost_yellowcube">
+                            <label>IK</label>
+                        </ik>
+                        <sa translate="label" module="swisspost_yellowcube">
+                            <label>SA</label>
+                        </sa>
+                        <sg translate="label" module="swisspost_yellowcube">
+                            <label>SG</label>
+                        </sg>
+                        <uc translate="label" module="swisspost_yellowcube">
+                            <label>UC</label>
+                        </uc>
+                        <vc translate="label" module="swisspost_yellowcube">
+                            <label>VC</label>
+                        </vc>
+                    </type>
+                </ean>
                 <methods>
                     <eco translate="label" module="swisspost_yellowcube">
                         <label>PostPac Economy</label>
