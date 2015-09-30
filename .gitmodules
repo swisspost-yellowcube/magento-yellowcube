@@ -1,6 +1,0 @@
-[submodule "lib/Wse"]
-	path = lib/Wse
-	url = git@github.com:liip-forks/wse-php.git
-[submodule "lib/YellowCube"]
-	path = lib/YellowCube
-	url = git@github.com:swisspost-yellowcube/yellowcube-php.git
