@@ -356,7 +356,7 @@
         <jobs>
             <yc_process_queue>
                 <schedule>
-                    <cron_expr>*/5 * * * *</cron_expr><!-- @todo replace to 0 * * * * for each hour after test phase -->
+                    <cron_expr>0 * * * *</cron_expr>
                 </schedule>
                 <run>
                     <model>swisspost_yellowcube/queue_processor::process</model>
@@ -364,7 +364,7 @@
             </yc_process_queue>
             <yc_war>
                 <schedule>
-                    <cron_expr>*/10 * * * *</cron_expr><!-- @todo replace with 30 1 * * * -->
+                    <cron_expr>30 1 * * *</cron_expr>
                 </schedule>
                 <run>
                     <model>swisspost_yellowcube/observer::handleWar</model>
@@ -372,7 +372,7 @@
             </yc_war>
             <yc_inventory_sync>
                 <schedule>
-                    <cron_expr>*/10 * * * *</cron_expr><!-- @todo replace with 30 1 * * * -->
+                    <cron_expr>30 1 * * *</cron_expr>
                 </schedule>
                 <run>
                     <model>swisspost_yellowcube/observer::handleInventory</model>
