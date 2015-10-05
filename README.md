@@ -39,11 +39,19 @@ git clone https://github.com/swisspost-yellowcube/magento-yellowcube.git
 Then copy the files and folders in the corresponding Magento folders
 
 
-#### Via Composer
+### Via Composer
+
+#### Requirements:
+  * Web server must follow symlinks
+  * For Magento you must enable "Allow Symlinks" (found under System > Configuration > Advanced > Developer)
+  
+![Allow Symlinks](https://f.cloud.github.com/assets/1337461/43324/820d4d96-567f-11e2-947a-167bf76db33f.png)
+
+#### Installation:
 
 - Install [composer](http://getcomposer.org/download/)
-- Run `composer init` in your root folder of your project
 - Run `composer require swisspost-yellowcube/magento-yellowcube`
+
 
 
 ## Configuration
