@@ -42,8 +42,7 @@ Then copy the files and folders in the corresponding Magento folders
 ### Via Composer
 
 #### Requirements:
-  * u
-  * Unix based OS on hostmachine (linux/mac os). For Windows machines please use another approach since symlinks are not supported there.
+  * Unix based OS on host machine (linux/mac os). For Windows machines please use another approach since symlinks are not supported there.
   * Web server must follow symlinks
   * For Magento you must enable "Allow Symlinks" (found under System > Configuration > Advanced > Developer)
   
