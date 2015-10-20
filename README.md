@@ -22,7 +22,7 @@ Some classes and javascript contain a MIT license.
 
 ### Via MagentoConnect
 
-- You can install the current stable version via [MagentoConnect Website](http://www.magentocommerce.com/magento-connect/)
+- You can install the current stable version via [MagentoConnect Website](http://www.magentocommerce.com/magento-connect/swiss-post-yellowcube-magento-connector.html)
 
 ### Manually
 
@@ -45,7 +45,7 @@ Then copy the files and folders in the corresponding Magento folders
   * Unix based OS on host machine (linux/mac os). For Windows machines please use another approach since symlinks are not supported there.
   * Web server must follow symlinks
   * For Magento you must enable "Allow Symlinks" (found under System > Configuration > Advanced > Developer)
-  
+
 ![Allow Symlinks](https://f.cloud.github.com/assets/1337461/43324/820d4d96-567f-11e2-947a-167bf76db33f.png)
 
 #### Installation:
