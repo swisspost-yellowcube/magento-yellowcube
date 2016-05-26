@@ -8,7 +8,7 @@
  * @copyright   Copyright (c) 2015 Liip AG
  */
 
-class Swisspost_Yellowcube_Model_System_Config_Backend_Methods extends Mage_Core_Model_Config_Data
+class Swisspost_YellowCube_Model_System_Config_Backend_Methods extends Mage_Core_Model_Config_Data
 {
     protected $_eventPrefix = 'yellowcube_config_data';
 

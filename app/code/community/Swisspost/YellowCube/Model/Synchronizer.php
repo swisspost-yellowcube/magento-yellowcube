@@ -34,6 +34,7 @@ class Swisspost_YellowCube_Model_Synchronizer
             'tara_factor' => Mage::getStoreConfig(Swisspost_YellowCube_Helper_Data::CONFIG_TARA_FACTOR, Mage::app()->getWebsite($product->getWebsiteId())->getDefaultStore()->getId()),
             'product_ean' => $product->getData('yc_ean_code'),
             'product_ean_type' => $product->getData('yc_ean_type'),
+            'product_lot_management' => $product->getData('yc_requires_lot_management'),
         )));
 
         return $this;
@@ -104,6 +105,7 @@ class Swisspost_YellowCube_Model_Synchronizer
     public function ship(Mage_Shipping_Model_Shipment_Request $request)
     {
         $order = $request->getOrderShipment();
+        $realOrder = $order->getOrder();
         $helper = Mage::helper('swisspost_yellowcube');
 
         $locale = Mage::getStoreConfig('general/locale/code', $request->getStoreId());
@@ -129,6 +131,7 @@ class Swisspost_YellowCube_Model_Synchronizer
             // Order Header
             'deposit_number'    => $this->getHelper()->getDepositorNumber($request->getStoreId()),
             'order_id'          => $order->getOrderId(),
+            'order_increment_id' => $realOrder->getIncrementId(),
             'order_date'        => date('Ymd'),
 
             // Partner Address

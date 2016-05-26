@@ -5,10 +5,10 @@
  *
  * @author      Sylvain Rayé <sylvain.raye at diglin.com>
  * @category    Yellowcube
- * @package     Swisspost_Yellowcube
+ * @package     Swisspost_YellowCube
  * @copyright   Copyright (c) 2015 Liip AG
  */
-class Swisspost_Yellowcube_Model_Queue_Message_Handler_Action_Processor_War
+class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_War
     extends Swisspost_YellowCube_Model_Queue_Message_Handler_Action_ProcessorAbstract
     implements Swisspost_YellowCube_Model_Queue_Message_Handler_Action_ProcessorInterface
 {
@@ -53,6 +53,8 @@ class Swisspost_Yellowcube_Model_Queue_Message_Handler_Action_Processor_War
                                     $hash[$item->getId()] = true;
                                 }
                             }
+                            $lotId = $customerOrderDetail->getLot();
+                            $quantityUOM = $customerOrderDetail->getQuantityUOM();
                         }
                     } catch (Exception $e) {
                         Mage::logException($e);
@@ -65,6 +67,8 @@ class Swisspost_Yellowcube_Model_Queue_Message_Handler_Action_Processor_War
 
                     // Add a message to the order history incl. link to shipping infos
                     $message = $this->getHelper()->__('Your order has been shipped. You can use the following url for shipping tracking: <a href="%1$s" target="_blank">%1$s</a>', $shippingUrl);
+                    $message .= "\r\n" . $this->getHelper()->__('Lot ID: %s', $lotId);
+                    $message .= "\r\n" . $this->getHelper()->__('Quantity UOM: %s', $quantityUOM);
 
                     $track = Mage::getModel('sales/order_shipment_track');
                     $track

@@ -9,9 +9,9 @@
  */
 
 /**
- * Class Swisspost_Yellowcube_Block_Adminhtml_Form_Field_Codes
+ * Class Swisspost_YellowCube_Block_Adminhtml_Form_Field_Codes
  */
-class Swisspost_Yellowcube_Block_Adminhtml_Form_Field_Codes extends Mage_Core_Block_Html_Select
+class Swisspost_YellowCube_Block_Adminhtml_Form_Field_Codes extends Mage_Core_Block_Html_Select
 {
     /**
      * Carrier Code

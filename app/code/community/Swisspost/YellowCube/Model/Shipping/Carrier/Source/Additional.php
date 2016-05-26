@@ -4,11 +4,11 @@
  *
  * @author      Sylvain Rayé <sylvain.raye at diglin.com>
  * @category    Yellowcube
- * @package     Swisspost_Yellowcube
+ * @package     Swisspost_YellowCube
  * @copyright   Copyright (c) 2015 Liip AG
  */
 
-class Swisspost_Yellowcube_Model_Shipping_Carrier_Source_Additional
+class Swisspost_YellowCube_Model_Shipping_Carrier_Source_Additional
 {
     /**
      * @return array

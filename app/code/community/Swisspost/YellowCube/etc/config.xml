@@ -3,7 +3,7 @@
 <config>
     <modules>
         <Swisspost_YellowCube>
-            <version>1.0.0.2</version>
+            <version>1.0.0.3</version>
         </Swisspost_YellowCube>
     </modules>
 
@@ -12,6 +12,11 @@
             <swisspost_yellowcube>
                 <class>Swisspost_YellowCube_Block</class>
             </swisspost_yellowcube>
+            <adminhtml>
+                <rewrite>
+                    <catalog_product_grid>Swisspost_YellowCube_Block_Adminhtml_Product_Grid</catalog_product_grid>
+                </rewrite>
+            </adminhtml>
         </blocks>
         <models>
             <swisspost_yellowcube>
@@ -32,6 +37,15 @@
             </swisspost_yellowcube_setup>
         </resources>
         <events>
+            <catalog_product_load_after>
+                <observers>
+                    <catalog_product_yellowcube_sync>
+                        <type>singleton</type>
+                        <class>swisspost_yellowcube/observer</class>
+                        <method>disableLotFields</method>
+                    </catalog_product_yellowcube_sync>
+                </observers>
+            </catalog_product_load_after>
             <catalog_product_attribute_update_before>
                 <observers>
                     <catalog_product_yellowcube_sync>
@@ -131,12 +145,6 @@
                         <he translate="label" module="swisspost_yellowcube">
                             <label>HE</label>
                         </he>
-                        <e5 translate="label" module="swisspost_yellowcube">
-                            <label>E5</label>
-                        </e5>
-                        <ea translate="label" module="swisspost_yellowcube">
-                            <label>EA</label>
-                        </ea>
                         <hk translate="label" module="swisspost_yellowcube">
                             <label>HK</label>
                         </hk>
@@ -152,18 +160,9 @@
                         <ik translate="label" module="swisspost_yellowcube">
                             <label>IK</label>
                         </ik>
-                        <sa translate="label" module="swisspost_yellowcube">
-                            <label>SA</label>
-                        </sa>
-                        <sg translate="label" module="swisspost_yellowcube">
-                            <label>SG</label>
-                        </sg>
                         <uc translate="label" module="swisspost_yellowcube">
                             <label>UC</label>
                         </uc>
-                        <vc translate="label" module="swisspost_yellowcube">
-                            <label>VC</label>
-                        </vc>
                     </type>
                 </ean>
                 <methods>
@@ -356,7 +355,7 @@
         <jobs>
             <yc_process_queue>
                 <schedule>
-                    <cron_expr>0 * * * *</cron_expr>
+                    <cron_expr>0 * * * *</cron_expr><!-- @todo replace to 0 * * * * for each hour after test phase -->
                 </schedule>
                 <run>
                     <model>swisspost_yellowcube/queue_processor::process</model>
@@ -364,7 +363,7 @@
             </yc_process_queue>
             <yc_war>
                 <schedule>
-                    <cron_expr>30 1 * * *</cron_expr>
+                    <cron_expr>30 1 * * *</cron_expr><!-- @todo replace with 30 1 * * * -->
                 </schedule>
                 <run>
                     <model>swisspost_yellowcube/observer::handleWar</model>
@@ -372,7 +371,7 @@
             </yc_war>
             <yc_inventory_sync>
                 <schedule>
-                    <cron_expr>30 1 * * *</cron_expr>
+                    <cron_expr>30 1 * * *</cron_expr><!-- @todo replace with 30 1 * * * -->
                 </schedule>
                 <run>
                     <model>swisspost_yellowcube/observer::handleInventory</model>

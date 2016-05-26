@@ -26,6 +26,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Wa
 {
     public function process(array $data)
     {
+        //todo log the data to get the order increment id
         $shipment = Mage::getModel('sales/order_shipment')->load($data['order_id'], 'order_id');
 
         $customerId = null;
@@ -96,7 +97,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Wa
         $response = $this->getYellowCubeService()->createYCCustomerOrder($ycOrder);
         try {
             if (!is_object($response) || !$response->isSuccess()) {
-                $message = $this->getHelper()->__('Shipment #%s for Order #%s could not be transmitted to YellowCube: "%s".', $shipment->getIncrementId(), $data['order_id'], $response->getStatusText());
+                $message = $this->getHelper()->__('Shipment #%s for Order #%s could not be transmitted to YellowCube: "%s".', $shipment->getIncrementId(), $data['order_increment_id'], $response->getStatusText());
 
                 $shipment
                     ->addComment($message, false, false)
@@ -125,7 +126,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Wa
                 }
 
                 $shipment
-                    ->addComment($this->getHelper()->__('Shipment #%s for Order #%s was successfully transmitted to YellowCube. Received reference number %s and status message "%s".', $shipment->getIncrementId(), $data['order_id'], $response->getReference(), $response->getStatusText()), false, false)
+                    ->addComment($this->getHelper()->__('Shipment #%s for Order #%s was successfully transmitted to YellowCube. Received reference number %s and status message "%s".', $shipment->getIncrementId(), $data['order_increment_id'], $response->getReference(), $response->getStatusText()), false, false)
                     ->save();
 
                 // WAR Message
@@ -151,7 +152,7 @@ class Swisspost_YellowCube_Model_Queue_Message_Handler_Action_Processor_Order_Wa
      */
     public function getPdfA(Mage_Sales_Model_Order_Shipment $shipment)
     {
-        /** @var Swisspost_Yellowcube_Model_Sales_Order_Pdf_Shipment $shipmentPdfGenerator */
+        /** @var Swisspost_YellowCube_Model_Sales_Order_Pdf_Shipment $shipmentPdfGenerator */
         $shipmentPdfGenerator = Mage::getModel('swisspost_yellowcube/sales_order_pdf_shipment');
         return $shipmentPdfGenerator->getPdf($shipment);
     }

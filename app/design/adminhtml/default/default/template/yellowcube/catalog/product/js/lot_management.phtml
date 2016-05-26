@@ -1,0 +1,34 @@
+<script type="text/javascript">
+    //<![CDATA[
+    var observedQtyFields = [
+        'inventory_manage_stock',
+        'inventory_qty',
+        'inventory_stock_availability'
+    ];
+    function handleLotManagement() {
+        if (isControlDisabled()) {
+            $('yc_requires_lot_management').disable();
+        } else {
+            $('yc_requires_lot_management').enable();
+        }
+    }
+    function isControlDisabled() {
+        var manageStock = parseInt($('inventory_manage_stock').value);
+        var qty = parseInt($('inventory_qty').value);
+        var isInStock = parseInt($('inventory_stock_availability').value);
+        if (!manageStock) {
+            return true;
+        }
+        if (manageStock && isInStock && qty > 0) {
+            return true;
+        }
+        return false;
+    }
+    Event.observe(window, 'load', function() {
+        handleLotManagement();
+        observedQtyFields.each(function(htmlId) {
+            Event.observe($(htmlId), 'change', handleLotManagement);
+        });
+    });
+    //]]>
+</script>

@@ -325,6 +325,14 @@ class Swisspost_YellowCube_Model_Observer
         return $this;
     }
 
+    public function disableLotFields(Varien_Event_Observer $observer)
+    {
+        $event = $observer->getEvent();
+        $product = $event->getProduct();
+        $product->lockAttribute('yc_lot_info');
+        $product->lockAttribute('yc_most_recent_expiration_date');
+    }
+
     /**
      * @return Mage_Core_Model_Session
      */

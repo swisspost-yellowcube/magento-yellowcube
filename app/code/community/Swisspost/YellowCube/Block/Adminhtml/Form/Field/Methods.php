@@ -9,20 +9,20 @@
  */
 
 /**
- * Class Swisspost_Yellowcube_Block_Adminhtml_Form_Field_Methods
+ * Class Swisspost_YellowCube_Block_Adminhtml_Form_Field_Methods
  */
-class Swisspost_Yellowcube_Block_Adminhtml_Form_Field_Methods
+class Swisspost_YellowCube_Block_Adminhtml_Form_Field_Methods
     extends Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
 {
     /**
-     * @var Swisspost_Yellowcube_Block_Adminhtml_Form_Field_Codes
+     * @var Swisspost_YellowCube_Block_Adminhtml_Form_Field_Codes
      */
     protected $_methodRenderer;
 
     /**
      * Retrieve group column renderer
      *
-     * @return Swisspost_Yellowcube_Block_Adminhtml_Form_Field_Codes
+     * @return Swisspost_YellowCube_Block_Adminhtml_Form_Field_Codes
      */
     protected function _getMethodRenderer()
     {
