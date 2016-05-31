@@ -26,14 +26,19 @@ Some classes and javascript contain a MIT license.
 
 ### Manually
 
+#### 1. Step 
 
+You need to have installed the [yellowcube](https://github.com/swisspost-yellowcube/yellowcube-php) php library first in your root folder (a folder vendor is created) of your magento project. 
+
+#### 2. Step 
+
+Clone your project in a separate project folder (not in the magento rootfolder itself)
 
 ```
 
 git clone https://github.com/swisspost-yellowcube/magento-yellowcube.git
 
 ```
-
 
 
 Then copy the files and folders in the corresponding Magento folders
@@ -54,26 +59,11 @@ Then copy the files and folders in the corresponding Magento folders
 - Run `composer require swisspost-yellowcube/magento-yellowcube`
 
 
-
 ## Configuration
 
 ## Magento Extension Configuration
 
-In Menu `System > Configuration > General > General`
-
-In the register "Store Information", set the Store Name and telephone number
-
 In Menu `System > Configuration > Shipping Settings
 
-Set the origin of the shipment:
-- Country,
-- Region, 
-- Zip Code,
-- City, 
-- Street Address
-- Street Address 2 (this last if relevant)
+You can find the complete [User Manual](https://www.liip.ch/en/yellowcube-connector) at [liip.ch YellowCube Connector page](https://www.liip.ch/en/yellowcube-connector).
 
-
-In Menu `System > Configuration > Shipping Methods`
-
-Fill all information related to the register "Swisspost YellowCube"
