@@ -208,6 +208,10 @@
                         <real_code>PICKUP</real_code>
                         <additional>APOST</additional>
                     </pickup_apost>
+                    <aplus translate="label" module="swisspost_yellowcube">
+                        <label>A-POST PLUS</label>
+                        <code>APLUS</code>
+                    </aplus>
                     <pickup_intpri_gr translate="label" module="swisspost_yellowcube">
                         <label>Pickup International Priority Gross</label>
                         <code>PICKUP INTPRIGR</code>
