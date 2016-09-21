@@ -65,5 +65,6 @@ Then copy the files and folders in the corresponding Magento folders
 
 In Menu `System > Configuration > Shipping Settings
 
+###User Manual / Configuration Manual
 You can find the complete [User Manual](https://www.liip.ch/en/yellowcube-connector) at [liip.ch YellowCube Connector page](https://www.liip.ch/en/yellowcube-connector).
 
