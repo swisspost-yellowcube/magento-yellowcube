@@ -24,25 +24,6 @@ Some classes and javascript contain a MIT license.
 
 - You can install the current stable version via [MagentoConnect Website](http://www.magentocommerce.com/magento-connect/swiss-post-yellowcube-magento-connector.html)
 
-### Manually
-
-#### 1. Step 
-
-You need to have installed the [yellowcube](https://github.com/swisspost-yellowcube/yellowcube-php) php library first in your root folder (a folder vendor is created) of your magento project. 
-
-#### 2. Step 
-
-Clone your project in a separate project folder (not in the magento rootfolder itself)
-
-```
-
-git clone https://github.com/swisspost-yellowcube/magento-yellowcube.git
-
-```
-
-
-Then copy the files and folders in the corresponding Magento folders
-
 
 ### Via Composer
 
