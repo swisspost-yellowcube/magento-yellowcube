@@ -20,10 +20,9 @@ Some classes and javascript contain a MIT license.
 
 ## Installation
 
-### Via MagentoConnect
+### Via Copy Paste
 
-- You can install the current stable version via [MagentoConnect Website](http://www.magentocommerce.com/magento-connect/swiss-post-yellowcube-magento-connector.html)
-
+Copy the files into webroot of Magento (you have to know what you're doing!)
 
 ### Via Composer
 
@@ -46,6 +45,6 @@ Some classes and javascript contain a MIT license.
 
 In Menu `System > Configuration > Shipping Settings
 
-###User Manual / Configuration Manual
+### User Manual / Configuration Manual
 You can find the complete [User Manual](https://www.liip.ch/en/yellowcube-connector) at [liip.ch YellowCube Connector page](https://www.liip.ch/en/yellowcube-connector).
 
