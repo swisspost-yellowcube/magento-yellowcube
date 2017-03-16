@@ -14,7 +14,7 @@ Some classes and javascript contain a MIT license.
 - Magento CE >= 1.6.x to 1.9.x
 - PHP >= 5.3.2
 - PHP Soap, DOM Library, mbstring,
-- Cron enabled and configured for Magento (set your cron at server level to a period of 5 min to launch internal task related to the rircardo extension
+- Cron enabled and configured for Magento (set your cron at server level to a period of 5 min to launch internal task related to the extension
 */5 * * * * php path/to/my/magento/cron.php)
 
 
