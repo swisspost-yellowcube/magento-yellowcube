@@ -105,7 +105,7 @@ class Swisspost_YellowCube_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Get Tara Factor (net weight * tara factor = brut weight)
+     * Get Tara Factor (gross weight * tara factor = net weight)
      *
      * @param null|string|bool|int|Mage_Core_Model_Store $storeId
      * @return float
