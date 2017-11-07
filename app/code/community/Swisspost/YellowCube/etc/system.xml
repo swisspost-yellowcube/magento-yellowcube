@@ -151,7 +151,7 @@
                             <label></label>
                             <comment>Send all product master data to YellowCube; only applies to products with the attribute "Sync with YellowCube" = Yes.</comment>
                             <button_label>Send All Product Data to YellowCube</button_label>
-                            <frontend_model>swisspost_yellowcube/adminhtml_system_config_upload</frontend_model>
+                            <frontend_model>swisspost_yellowcube/adminhtml_system_config_art</frontend_model>
                             <sort_order>160</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
@@ -160,7 +160,7 @@
                         <yc_download_data translate="button_label comment">
                             <label></label>
                             <button_label>Get Current Stock Data from YellowCube</button_label>
-                            <frontend_model>swisspost_yellowcube/adminhtml_system_config_download</frontend_model>
+                            <frontend_model>swisspost_yellowcube/adminhtml_system_config_bar</frontend_model>
                             <sort_order>170</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>

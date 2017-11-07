@@ -2,12 +2,11 @@
 
 class Swisspost_YellowCube_Adminhtml_YellowCube_System_Config_SyncController extends Mage_Adminhtml_Controller_Action
 {
-    public function downloadAction()
+    public function barAction()
     {
         try {
-            // @todo
-            //$this->getSynchronizer()->updateAll();
-            Mage::log('Swisspost Sync download');
+            $this->getSynchronizer()->bar();
+            Mage::log('YellowCube: Stock data update requested by admin.');
             echo 1;
         } catch (Exception $e) {
             Mage::logException($e);
@@ -15,12 +14,11 @@ class Swisspost_YellowCube_Adminhtml_YellowCube_System_Config_SyncController ext
         }
     }
 
-    public function uploadAction()
+    public function artAction()
     {
         try {
-            // @todo care of the current website ID used
             $this->getSynchronizer()->updateAll();
-            Mage::log('Swisspost Sync upload');
+            Mage::log('YellowCube: Product data update requested by admin.');
             echo 1;
         } catch (Exception $e) {
             Mage::logException($e);
